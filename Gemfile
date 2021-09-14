@@ -30,7 +30,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 # gem 'faraday'
 # gem 'figaro'
-
+gem 'factory_bot_rails'
+gem 'faker'
 gem 'travis'
 
 group :development, :test do
