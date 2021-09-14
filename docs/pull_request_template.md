@@ -1,4 +1,4 @@
-What I Did:
+What was Done:
 - 
 
 Road Blocks:
@@ -6,8 +6,7 @@ Road Blocks:
 
 Test Coverage:
 [] I have tested this code with RSpec
-[] Simplecov coverage is >98%
-[] I have corrected all Rubocop offenses
+[] Simplecov coverage is >95%
 - 
 
 Questions/Notes:
