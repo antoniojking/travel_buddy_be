@@ -5,7 +5,9 @@ Rails.application.routes.draw do
         resources :friendships, only: [:index, :create]
       end
       resources :parks, only: [:index, :show]
-      resources :trips, only: [:create]
+      resources :trips, only: [:create, :show] do
+        resources :travel_buddies, only: [:index, :create]
+      end
     end
   end
 end

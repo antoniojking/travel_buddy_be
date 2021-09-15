@@ -9,4 +9,18 @@ class UserSerializer
   attribute :friends do |object|
     object.friends
   end
+
+  def self.format_user_email(users)
+    {"data":
+      users.map do |user|
+        {
+          "id": user.id,
+          "type": "User Email",
+          "attributes": {
+            "email": user.email
+          }
+        }
+      end
+    }
+  end
 end
