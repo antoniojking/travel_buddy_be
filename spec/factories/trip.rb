@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :trip do
-    start_date { DateTime.new('11-18-2021') }
-    end_date { DateTime.new('12-25-2021') }
+    start_date { Faker::Date.between(from: '2021-11-18', to: '2021-11-20') }
+    end_date { Faker::Date.between(from: '2021-11-21', to: '2021-11-25') }
     name { 'Teton National Park' }
     park_id { 'grte' }
   end

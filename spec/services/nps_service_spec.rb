@@ -34,4 +34,18 @@ require 'rails_helper'
         expect(park[:url]).to be_a(String)
       end
    end
+
+   it 'can get specific national park by parkcode', :vcr do
+     query = 'grte'
+
+     parks = NpsService.get_nps_by_parkcode(query)
+
+     expect(parks[:data][0]).to have_key(:description)
+     expect(parks[:data][0][:description]).to be_a(String)
+     expect(parks[:data][0]).to have_key(:entranceFees)
+     expect(parks[:data][0][:entranceFees][0]).to have_key(:cost)
+     expect(parks[:data][0][:entranceFees][0]).to have_key(:description)
+     expect(parks[:data][0]).to have_key(:directionsInfo)
+     expect(parks[:data][0]).to have_key(:images)
+   end
  end
