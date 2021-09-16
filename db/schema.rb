@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_15_212833) do
+ActiveRecord::Schema.define(version: 2021_09_16_000158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,24 @@ ActiveRecord::Schema.define(version: 2021_09_15_212833) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["trip_id"], name: "index_activities_on_trip_id"
+  end
+
+  create_table "checklist_items", force: :cascade do |t|
+    t.bigint "checklist_id"
+    t.bigint "user_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["checklist_id"], name: "index_checklist_items_on_checklist_id"
+    t.index ["user_id"], name: "index_checklist_items_on_user_id"
+  end
+
+  create_table "checklists", force: :cascade do |t|
+    t.bigint "trip_id"
+    t.string "category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trip_id"], name: "index_checklists_on_trip_id"
   end
 
   create_table "friendships", force: :cascade do |t|
@@ -63,6 +81,8 @@ ActiveRecord::Schema.define(version: 2021_09_15_212833) do
   end
 
   add_foreign_key "activities", "trips"
+  add_foreign_key "checklist_items", "checklists"
+  add_foreign_key "checklists", "trips"
   add_foreign_key "friendships", "users"
   add_foreign_key "travel_buddies", "trips"
   add_foreign_key "travel_buddies", "users"
