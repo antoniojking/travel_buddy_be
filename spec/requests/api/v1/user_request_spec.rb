@@ -29,4 +29,44 @@ RSpec.describe 'User API' do
     expect(user[:data][:attributes]).to have_key(:trips)
     expect(user[:data][:attributes]).to have_key(:friends)
   end
+
+  it 'can create a new user' do
+    user_params = {
+      authorization_token: '109283yyrbadso8734gr',
+      refresh_token: 'qp398cbqwiobc983q4yfkajbsv',
+      email: 'test@test.com'
+    }
+
+    post '/api/v1/users', params: {user: user_params}
+
+    expect(response).to be_successful
+
+    user = JSON.parse(response.body, symbolize_names: true)
+
+    expect(user[:data]).to be_a(Hash)
+    expect(user[:data]).to have_key(:id)
+    expect(user[:data]).to have_key(:type)
+    expect(user[:data]).to have_key(:attributes)
+    expect(user[:data][:attributes]).to have_key(:email)
+    expect(user[:data][:attributes]).to have_key(:authorization_token)
+    expect(user[:data][:attributes]).to have_key(:refresh_token)
+  end
+
+  it 'can find an existing user' do
+    user = create(:user)
+
+    post '/api/v1/users', params: {user: {email: user.email}}
+
+    expect(response).to be_successful
+
+    user = JSON.parse(response.body, symbolize_names: true)
+
+    expect(user[:data]).to be_a(Hash)
+    expect(user[:data]).to have_key(:id)
+    expect(user[:data]).to have_key(:type)
+    expect(user[:data]).to have_key(:attributes)
+    expect(user[:data][:attributes]).to have_key(:email)
+    expect(user[:data][:attributes]).to have_key(:authorization_token)
+    expect(user[:data][:attributes]).to have_key(:refresh_token)
+  end
 end
