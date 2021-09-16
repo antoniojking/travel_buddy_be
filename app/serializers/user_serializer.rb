@@ -1,6 +1,6 @@
 class UserSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :email, :first_name, :last_name
+  attributes :email, :first_name, :last_name, :authorization_token, :refresh_token
 
   attribute :trips do |object|
     object.trips
@@ -8,5 +8,19 @@ class UserSerializer
 
   attribute :friends do |object|
     object.friends
+  end
+
+  def self.format_user_email(users)
+    {"data":
+      users.map do |user|
+        {
+          "id": user.id,
+          "type": "User Email",
+          "attributes": {
+            "email": user.email
+          }
+        }
+      end
+    }
   end
 end

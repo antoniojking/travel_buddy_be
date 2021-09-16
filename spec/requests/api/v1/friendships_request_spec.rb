@@ -19,8 +19,6 @@ RSpec.describe 'Friendship API' do
     expect(friendships[:data][0]).to have_key(:type)
     expect(friendships[:data][0]).to have_key(:attributes)
     expect(friendships[:data][0][:attributes]).to have_key(:email)
-    expect(friendships[:data][0][:attributes]).to have_key(:first_name)
-    expect(friendships[:data][0][:attributes]).to have_key(:last_name)
   end
 
   it 'creates a new friendship' do
