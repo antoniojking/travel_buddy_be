@@ -1,6 +1,6 @@
 class Park
   attr_reader :name,
-              :park_code,
+              :id,
               :description,
               :activities,
               :contacts,
@@ -10,7 +10,7 @@ class Park
 
   def initialize(park_info)
     @name = park_info[:fullName]
-    @park_code = park_info[:parkCode]
+    @id = park_info[:parkCode]
     @description = park_info[:description]
     @activities = park_info[:activities]
     @contacts = park_info[:contacts]

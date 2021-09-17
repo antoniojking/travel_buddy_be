@@ -37,7 +37,7 @@ RSpec.describe Park do
 
     expect(park).to be_an_instance_of(Park)
     expect(park.name).to eq(attributes[:fullName])
-    expect(park.park_code).to eq(attributes[:parkCode])
+    expect(park.id).to eq(attributes[:parkCode])
     expect(park.description).to eq(attributes[:description])
     expect(park.activities).to eq(attributes[:activities])
     expect(park.contacts).to eq(attributes[:contacts])
