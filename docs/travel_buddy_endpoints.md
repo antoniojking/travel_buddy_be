@@ -7,17 +7,17 @@ POST      | `/api/v1/users`           | Find or create user. | [Link](#find-or-c
 GET       | `/api/v1/users/{user_id}/friendships` | Find all user friendships. | [Link](#get-user-friendships)
 POST      | `/api/v1/users/{user_id}/friendships` | Add a friend to user friendships. | [Link](#create-user-friendship)
 GET       | `/api/v1/trips/{trip_id}` | Get a single trip. | [Link](#get-one-trip)
-POST      | `/api/v1/trips` | Add a trip to user trips. | [Link](#)
+POST      | `/api/v1/trips` | Add a trip to user trips. | [Link](#create-user-trip)
 GET       | `/api/v1/trips/{trip_id}/activities` | Find all activities for a trip | [Link](#)
 POST      | `/api/v1/trips/{trip_id}/activities` | Add an activities to a trip | [Link](#)
-GET       | `/api/v1/trips/{trip_id}/travel_buddies` | Find all trip travel buddies | [Link](#)
-POST      | `/api/v1/trips/{trip_id}/travel_buddies` | Add a travel buddy to a trip | [Link](#)
+GET       | `/api/v1/trips/{trip_id}/travel_buddies` | Find all trip travel buddies | [Link](#get-trip-travel-buddies)
+POST      | `/api/v1/trips/{trip_id}/travel_buddies` | Add a travel buddy to a trip | [Link](#create-trip-travel-buddy)
 GET       | `/api/v1/trips/{trip_id}/checklists` | Find all checklists with checklist items for a trip | [Link](#)
 POST      | `/api/v1/trips/{trip_id}/checklists` | Add a checklists to a trip | [Link](#)
 POST      | `/api/v1/trips/{trip_id}/checklists/{checklist_id}/checklist_items?user_id` | Add a checklist item to a checklist | [Link](#)
 GET       | `/api/v1/parks?state='WY'` |  | [Link](#)
 GET       | `/api/v1/parks?activity='Fishing'` |  | [Link](#)
-GET       | `/api/v1/parks/{park_code}` |  | [Link](#)
+GET       | `/api/v1/parks/{park_id}` |  | [Link](#)
 GET       | `/api/v1/weather??` |  | [Link](#)
 GET       | `/api/v1/weather??` |  | [Link](#)
 
@@ -282,7 +282,7 @@ Example:
     "type":"friendship",
     "attributes":
     {"user_id":34,
-    "friend_id":35}
+    "friend_id":12}
     }
   }
 ```
@@ -319,7 +319,7 @@ Status: 200 OK
 ```
 Example:
   {"data":
-    {"id":"35",
+    {"id":"10",
     "type":"trip",
     "attributes":
       {"name":"Teton National Park",
@@ -383,7 +383,100 @@ Example:
        "start_date":"2021-11-18T00:00:00.000Z",
        "end_date":"2021-12-18T00:00:00.000Z",
        "park_code":"grte"}
-       }
-     }
+       }}
+```
+---
+# Get Trip Travel Buddies
+
+Returns a trips travel buddies.
+
+```
+GET /api/v1/trips/{trip_id}/travel_buddies
+```
+
+## Parameters
+
+Name        | Data Type | In    | Required/Optional    | Description
+------------|---------|-------|----------------------|------------
+`trip_id`   | Integer | Path | Required | The ID of the trip
+
+Notes:
+-
+
+## Example Request
+
+```
+GET https://travel-buddy-api.herokuapp.com/api/v1/trip/2/travel_buddies
+```
+
+## Example Response
+
+```
+Status: 200 OK
+```
+
+```
+Example:
+  {"data":
+    [{"id":43,
+      "type":"User Email",
+      "attributes":
+      {"email":"cathey.schulist@walter-reichel.net"}
+      },
+     {"id":44,
+      "type":"User Email",
+      "attributes":
+      {"email":"markita.jacobi@welch.io"}
+    }]
+  }
+```
+
+---
+# Create Trip Travel Buddy
+
+Creates a travel buddy for a trip.
+
+```
+POST /api/v1/trips/{trip_id}/travel_buddies
+```
+
+## Request Body
+
+Attribute Name| Data Type | Description
+--------------|-----------|------------
+`user_id` | Integer | The new travel buddy user id
+
+Notes:
+-
+
+## Example Request
+
+```
+POST https://travel-buddy-api.herokuapp.com/api/trips/39/travel_buddies
+```
+With the following example request body:
+
+```
+{
+  user_id: 47
+}
+```
+
+## Example Response
+
+```
+Status: 201 Created
+```
+
+```
+Example:
+  {"data":
+    {"id":"35",
+    "type":"travel_buddy",
+    "attributes":
+      {"user_id":47,
+      "trip_id":39}
+    }
+  }
 ```
 ---
