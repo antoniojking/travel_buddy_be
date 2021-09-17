@@ -32,13 +32,13 @@ RSpec.describe 'Parks API' do
 
     parks = JSON.parse(response.body, symbolize_names: true)
 
-    parks[:data][0][:parks].each do |park|
-      expect(park).to have_key(:parkCode)
-      expect(park[:parkCode]).to be_a(String)
-      expect(park).to have_key(:fullName)
-      expect(park[:fullName]).to be_a(String)
-      expect(park).to have_key(:url)
-      expect(park[:url]).to be_a(String)
+    parks[:data].each do |park|
+      expect(park).to have_key(:id)
+      expect(park[:id]).to be_a(String)
+      expect(park).to have_key(:attributes)
+      expect(park[:attributes]).to be_a(Hash)
+      expect(park[:attributes]).to have_key(:name)
+      expect(park[:attributes][:name]).to be_a(String)
     end
   end
 
