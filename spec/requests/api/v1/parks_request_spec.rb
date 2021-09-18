@@ -30,6 +30,11 @@ RSpec.describe 'Parks API' do
 
     expect(response).to_not be_successful
     expect(response.status).to eq(400)
+
+    error = JSON.parse(response.body, symbolize_names: true)
+
+    expect(error).to have_key(:message)
+    expect(error).to have_key(:status)
   end
 
   it 'edge case: params do not include a state', :vcr do
@@ -37,6 +42,11 @@ RSpec.describe 'Parks API' do
 
     expect(response).to_not be_successful
     expect(response.status).to eq(400)
+
+    error = JSON.parse(response.body, symbolize_names: true)
+
+    expect(error).to have_key(:message)
+    expect(error).to have_key(:status)
   end
 
   it 'sends parks based off of activity query params', :vcr do
@@ -61,6 +71,11 @@ RSpec.describe 'Parks API' do
 
     expect(response).to_not be_successful
     expect(response.status).to eq(400)
+
+    error = JSON.parse(response.body, symbolize_names: true)
+
+    expect(error).to have_key(:message)
+    expect(error).to have_key(:status)
   end
 
   it 'edge case: params do not include a activity', :vcr do
@@ -68,6 +83,11 @@ RSpec.describe 'Parks API' do
 
     expect(response).to_not be_successful
     expect(response.status).to eq(400)
+
+    error = JSON.parse(response.body, symbolize_names: true)
+
+    expect(error).to have_key(:message)
+    expect(error).to have_key(:status)
   end
 
   it 'sends specific national park by parkcode', :vcr do

@@ -11,6 +11,6 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:authorization_token, :refresh_token, :email)
+    params.require(:user).permit(:spotify_id, :token, :refresh_token, :email)
   end
 end
