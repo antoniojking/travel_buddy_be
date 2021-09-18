@@ -22,6 +22,20 @@ RSpec.describe 'Parks API' do
     end
   end
 
+  it 'sad path: params include a blank state', :vcr do
+    get '/api/v1/parks', params: { state: ''}
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(400)
+  end
+
+  it 'edge case: params do not include a state', :vcr do
+    get '/api/v1/parks'
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(400)
+  end
+
   it 'sends parks based off of activity query params', :vcr do
     get '/api/v1/parks', params: { activity: 'Fishing' }
 
@@ -37,6 +51,20 @@ RSpec.describe 'Parks API' do
       expect(park).to have_key(:url)
       expect(park[:url]).to be_a(String)
     end
+  end
+
+  it 'sad path: params include a blank activity', :vcr do
+    get '/api/v1/parks', params: { activity: ''}
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(400)
+  end
+
+  it 'edge case: params do not include a activity', :vcr do
+    get '/api/v1/parks'
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(400)
   end
 
   it 'sends specific national park by parkcode', :vcr do

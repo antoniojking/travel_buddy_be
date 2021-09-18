@@ -24,4 +24,18 @@ require 'rails_helper'
      expect(weather[:attributes][:forecast][0]).to have_key(:min_temp)
      expect(weather[:attributes][:forecast][0][:min_temp].class).to eq(Float)
    end
+
+   it 'sad path: params do not include location or days', :vcr do
+     get '/api/v1/weather'
+
+     expect(response).to_not be_successful
+     expect(response.status).to eq(400)
+   end
+
+   it 'edge case: params are included but in correct format', :vcr do
+     get '/api/v1/weather', params: {location: '', days: ''}
+
+     expect(response).to_not be_successful
+     expect(response.status).to eq(400)
+   end
  end
