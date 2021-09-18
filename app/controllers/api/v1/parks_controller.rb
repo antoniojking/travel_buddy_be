@@ -12,7 +12,7 @@ class Api::V1::ParksController < ApplicationController
   end
 
   def show
-    if params_id_included? && params_id_not_blank?
+    if params_id_included_and_not_blank?
       park = ParkFacade.create_parks_by_state(params[:state])
       render(json: ParkSerializer.new(park))
     else
@@ -30,11 +30,7 @@ class Api::V1::ParksController < ApplicationController
     params[:activity].present? && params[:activity] != ''
   end
 
-  def params_id_included?
-    params[:id].present?
-  end
-
-  def params_id_not_blank?
-    params[:id] != ''
+  def params_id_included_and_not_blank?
+    params[:id].present? && params[:id] != ''
   end
 end

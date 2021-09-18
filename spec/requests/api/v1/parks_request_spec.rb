@@ -92,16 +92,26 @@ RSpec.describe 'Parks API' do
   end
 
   it 'sends specific national park by parkcode', :vcr do
-    get '/api/v1/parks', params: { id: ''}
+    get "/api/v1/parks/"
 
     expect(response).to_not be_successful
     expect(response.status).to eq(400)
+
+    error = JSON.parse(response.body, symbolize_names: true)
+
+    expect(error).to have_key(:message)
+    expect(error).to have_key(:status)
   end
 
   it 'sends specific national park by parkcode', :vcr do
-    get '/api/v1/parks'
+    get '/api/v1/parks/'
 
     expect(response).to_not be_successful
     expect(response.status).to eq(400)
+
+    error = JSON.parse(response.body, symbolize_names: true)
+
+    expect(error).to have_key(:message)
+    expect(error).to have_key(:status)
   end
 end
