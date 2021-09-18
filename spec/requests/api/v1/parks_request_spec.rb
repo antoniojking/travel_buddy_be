@@ -7,18 +7,21 @@ RSpec.describe 'Parks API' do
     expect(response).to be_successful
 
     parks = JSON.parse(response.body, symbolize_names: true)
-
     expect(parks[:data].count).to eq(10)
 
     parks[:data].each do |park|
-      expect(park).to have_key(:parkCode)
-      expect(park[:parkCode]).to be_a(String)
-      expect(park).to have_key(:fullName)
-      expect(park[:fullName]).to be_a(String)
-      expect(park).to have_key(:description)
-      expect(park[:description]).to be_a(String)
-      expect(park).to have_key(:directionsInfo)
-      expect(park[:directionsInfo]).to be_a(String)
+      expect(park).to have_key(:id)
+      expect(park[:id]).to be_a(String)
+      expect(park[:attributes]).to have_key(:name)
+      expect(park[:attributes][:name]).to be_a(String)
+      expect(park[:attributes]).to have_key(:description)
+      expect(park[:attributes][:description]).to be_a(String)
+      expect(park[:attributes]).to have_key(:directions)
+      expect(park[:attributes][:directions]).to be_a(String)
+      expect(park[:attributes]).to have_key(:operating_hours)
+      expect(park[:attributes][:operating_hours]).to be_an(Array)
+      expect(park[:attributes]).to have_key(:images)
+      expect(park[:attributes][:images]).to be_an(Array)
     end
   end
 
@@ -43,13 +46,13 @@ RSpec.describe 'Parks API' do
 
     parks = JSON.parse(response.body, symbolize_names: true)
 
-    parks[:data][0][:parks].each do |park|
-      expect(park).to have_key(:parkCode)
-      expect(park[:parkCode]).to be_a(String)
-      expect(park).to have_key(:fullName)
-      expect(park[:fullName]).to be_a(String)
-      expect(park).to have_key(:url)
-      expect(park[:url]).to be_a(String)
+    parks[:data].each do |park|
+      expect(park).to have_key(:id)
+      expect(park[:id]).to be_a(String)
+      expect(park).to have_key(:attributes)
+      expect(park[:attributes]).to be_a(Hash)
+      expect(park[:attributes]).to have_key(:name)
+      expect(park[:attributes][:name]).to be_a(String)
     end
   end
 
@@ -72,14 +75,19 @@ RSpec.describe 'Parks API' do
 
     expect(response).to be_successful
 
-    parks = JSON.parse(response.body, symbolize_names: true)
+    park = JSON.parse(response.body, symbolize_names: true)[:data][0]
 
-    expect(parks[:data][0]).to have_key(:description)
-    expect(parks[:data][0][:description]).to be_a(String)
-    expect(parks[:data][0]).to have_key(:entranceFees)
-    expect(parks[:data][0][:entranceFees][0]).to have_key(:cost)
-    expect(parks[:data][0][:entranceFees][0]).to have_key(:description)
-    expect(parks[:data][0]).to have_key(:directionsInfo)
-    expect(parks[:data][0]).to have_key(:images)
+    expect(park).to have_key(:id)
+    expect(park[:id]).to be_a(String)
+    expect(park[:attributes]).to have_key(:name)
+    expect(park[:attributes][:name]).to be_a(String)
+    expect(park[:attributes]).to have_key(:description)
+    expect(park[:attributes][:description]).to be_a(String)
+    expect(park[:attributes]).to have_key(:directions)
+    expect(park[:attributes][:directions]).to be_a(String)
+    expect(park[:attributes]).to have_key(:operating_hours)
+    expect(park[:attributes][:operating_hours]).to be_an(Array)
+    expect(park[:attributes]).to have_key(:images)
+    expect(park[:attributes][:images]).to be_an(Array)
   end
 end
