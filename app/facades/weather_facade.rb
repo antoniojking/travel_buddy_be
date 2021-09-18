@@ -4,6 +4,7 @@ class WeatherFacade
     {
       id: json[:location][:name],
       current_temp: json[:current][:temp_f],
+      current_conditions: json[:current][:condition][:text],
       forecast:
       json[:forecast][:forecastday].map do |day|
         [
