@@ -90,4 +90,18 @@ RSpec.describe 'Parks API' do
     expect(park[:attributes]).to have_key(:images)
     expect(park[:attributes][:images]).to be_an(Array)
   end
+
+  it 'sends specific national park by parkcode', :vcr do
+    get '/api/v1/parks', params: { id: ''}
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(400)
+  end
+
+  it 'sends specific national park by parkcode', :vcr do
+    get '/api/v1/parks'
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(400)
+  end
 end

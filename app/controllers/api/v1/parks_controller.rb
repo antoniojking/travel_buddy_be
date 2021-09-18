@@ -16,7 +16,7 @@ class Api::V1::ParksController < ApplicationController
       park = ParkFacade.create_parks_by_state(params[:state])
       render(json: ParkSerializer.new(park))
     else
-      render(json: ErrorSerializer.park_params_id_blank_or_missing)
+      render(json: ErrorSerializer.park_params_id_blank_or_missing, status: :bad_request)
     end
   end
 
