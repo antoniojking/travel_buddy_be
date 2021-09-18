@@ -4,9 +4,9 @@ RSpec.describe WeatherFacade do
   it 'can create weather info', :vcr do
       expected = {
         id: "Boulder",
-        current_conditions: "Sunny",
+        current_conditions: "Mist",
         current_temp: 86.0,
-        forecast: [{condition: "Partly cloudy", date: "2021-09-17", max_temp: 74.3, min_temp: 41.5}, {condition: "Partly cloudy", date: "2021-09-18", max_temp: 87.4, min_temp: 55.4}]
+        forecast:[{condition: "Patchy rain possible", date: "2021-09-18", max_temp: 85.5, min_temp: 53.4}, {condition: "Partly cloudy", date: "2021-09-19", max_temp: 82.6, min_temp: 53.6}]
       }
 
       weather_info = WeatherFacade.weather_info('boulder', 2)
