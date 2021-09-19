@@ -14,5 +14,6 @@ RSpec.describe Trip do
     it { should validate_presence_of(:end_date) }
     it { should validate_presence_of(:park_code) }
     it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:park_name) }
   end
 end
