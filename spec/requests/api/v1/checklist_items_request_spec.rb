@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'checklist items api' do
   it 'can create a new checklist item' do
-    trip = create(:trip)
     user = create(:user)
+    trip = create(:trip, user: user)
     user2 = create(:user)
     travel_buddy1 = TravelBuddy.create(user: user, trip: trip)
     travel_buddy2 = TravelBuddy.create(user: user2, trip: trip)
@@ -27,8 +27,8 @@ RSpec.describe 'checklist items api' do
   end
 
   it 'can show a list of checklist items for a trip' do
-    trip = create(:trip)
     user = create(:user)
+    trip = create(:trip, user: user)
     user2 = create(:user)
     travel_buddy1 = TravelBuddy.create(user: user, trip: trip)
     travel_buddy2 = TravelBuddy.create(user: user2, trip: trip)

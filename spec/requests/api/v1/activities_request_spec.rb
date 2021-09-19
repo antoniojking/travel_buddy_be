@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Activities API' do
   it 'can send a list of a trips activities' do
-    trip = create(:trip)
+    user = create(:user)
+    trip = create(:trip, user: user)
     activity1 = create(:activity, trip: trip)
     activity2 = create(:activity, trip: trip)
 
@@ -22,7 +23,8 @@ RSpec.describe 'Activities API' do
   end
 
   it 'can create a new activity for a trip' do
-    trip = create(:trip)
+    user = create(:user)
+    trip = create(:trip, user: user)
 
     activity_params = {
       name: "Skiing"

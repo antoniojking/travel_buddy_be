@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Checklist API' do
   it 'can send all checklists for a trip' do
-    trip = create(:trip)
     user = create(:user)
+    trip = create(:trip, user: user)
     user2 = create(:user)
     travel_buddy1 = TravelBuddy.create(user: user, trip: trip)
     travel_buddy2 = TravelBuddy.create(user: user2, trip: trip)
@@ -31,7 +31,8 @@ RSpec.describe 'Checklist API' do
   end
 
   it 'can create a new checklist' do
-    trip = create(:trip)
+    user = create(:user)
+    trip = create(:trip, user: user)
     headers = {"CONTENT_TYPE" => "application/json"}
     params = JSON.generate({ category: 'Snacks' })
 

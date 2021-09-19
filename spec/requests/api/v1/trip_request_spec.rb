@@ -2,11 +2,13 @@ require 'rails_helper'
 
  RSpec.describe 'trip API' do
    it 'can create a new trip' do
+     user = create(:user)
      trip_params = {
        start_date: DateTime.new(2021, 11, 18),
        end_date: DateTime.new(2021, 12, 18),
        park_code: 'grte',
-       name: 'Graduation Teton Trip'
+       name: 'Graduation Teton Trip',
+       user_id: user.id
      }
      headers = {"CONTENT_TYPE" => "application/json"}
 
@@ -26,8 +28,8 @@ require 'rails_helper'
    end
 
    it 'can send trip by trip id' do
-     trip = create(:trip)
      user = create(:user)
+     trip = create(:trip, user: user)
      user2 = create(:user)
      travel_buddy1 = TravelBuddy.create!(user: user, trip: trip)
      travel_buddy1 = TravelBuddy.create!(user: user2, trip: trip)

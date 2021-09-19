@@ -10,4 +10,5 @@ class Trip < ApplicationRecord
   has_many :users, through: :travel_buddies
   has_many :checklists
   has_many :accommodations
+  belongs_to :user
 end

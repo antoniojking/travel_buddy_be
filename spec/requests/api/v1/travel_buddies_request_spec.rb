@@ -2,10 +2,10 @@ require 'rails_helper'
 
  RSpec.describe 'travel buddies api' do
    it 'can send a list of a trips travel buddies' do
-     trip = create(:trip)
-     user1 = create(:user)
+     user = create(:user)
+     trip = create(:trip, user: user)
      user2 = create(:user)
-     travel_buddy1 = TravelBuddy.create!(user: user1, trip: trip)
+     travel_buddy1 = TravelBuddy.create!(user: user, trip: trip)
      travel_buddy2 = TravelBuddy.create!(user: user2, trip: trip)
 
      get "/api/v1/trips/#{trip.id}/travel_buddies"
@@ -23,8 +23,8 @@ require 'rails_helper'
    end
 
    it 'can create a new travel buddy' do
-     trip = create(:trip)
      user = create(:user)
+     trip = create(:trip, user: user)
      travel_buddy_params = {
        trip_id: trip.id,
        user_id: user.id
