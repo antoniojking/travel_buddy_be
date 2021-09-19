@@ -1,6 +1,6 @@
 class ChecklistSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :category
+  attributes :category, :trip_id
 
   attributes :item_count do |object|
     object.checklist_items.count

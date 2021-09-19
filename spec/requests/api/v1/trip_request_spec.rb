@@ -1,15 +1,16 @@
 require 'rails_helper'
 
  RSpec.describe 'trip API' do
-   it 'can create anew trip' do
+   it 'can create a new trip' do
      trip_params = {
        start_date: DateTime.new(2021, 11, 18),
        end_date: DateTime.new(2021, 12, 18),
        park_code: 'grte',
        name: 'Graduation Teton Trip'
      }
+     headers = {"CONTENT_TYPE" => "application/json"}
 
-     post '/api/v1/trips', params: {trip: trip_params}
+     post '/api/v1/trips', headers: headers, params: JSON.generate(trip: trip_params)
 
      expect(response).to be_successful
 
@@ -25,9 +26,16 @@ require 'rails_helper'
    end
 
    it 'can send trip by trip id' do
-     trip_id = create(:trip).id
+     trip = create(:trip)
+     user = create(:user)
+     user2 = create(:user)
+     travel_buddy1 = TravelBuddy.create!(user: user, trip: trip)
+     travel_buddy1 = TravelBuddy.create!(user: user2, trip: trip)
+     checklist = create(:checklist, trip: trip)
+     checklist2 = create(:checklist, trip: trip)
 
-     get "/api/v1/trips/#{trip_id}"
+
+     get "/api/v1/trips/#{trip.id}"
 
      expect(response).to be_successful
 
@@ -40,5 +48,6 @@ require 'rails_helper'
      expect(trip[:data][:attributes]).to have_key(:start_date)
      expect(trip[:data][:attributes]).to have_key(:end_date)
      expect(trip[:data][:attributes]).to have_key(:park_code)
+     expect(trip[:data][:attributes]).to have_key(:park_name)
    end
  end
