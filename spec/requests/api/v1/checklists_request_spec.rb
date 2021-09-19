@@ -3,9 +3,16 @@ require 'rails_helper'
 RSpec.describe 'Checklist API' do
   it 'can send all checklists for a trip' do
     trip = create(:trip)
+    user = create(:user)
+    user2 = create(:user)
+    travel_buddy1 = TravelBuddy.create(user: user, trip: trip)
+    travel_buddy2 = TravelBuddy.create(user: user2, trip: trip)
     checklist1 = create(:checklist, trip: trip)
     checklist2 = create(:checklist, trip: trip)
     checklist3 = create(:checklist, trip: trip)
+    checklist_item1 = ChecklistItem.create!(name: 'Tent', user: user, checklist: checklist1)
+    checklist_item2 = ChecklistItem.create!(name: 'Pick Axe', user: user2, checklist: checklist2)
+    checklist_item3 = ChecklistItem.create!(name: 'Sleeping Bag', user: user2, checklist: checklist3)
 
     get "/api/v1/trips/#{trip.id}/checklists"
 

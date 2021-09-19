@@ -9,7 +9,9 @@ Rails.application.routes.draw do
       resources :trips, only: [:create, :show] do
         resources :travel_buddies, only: [:index, :create]
         resources :activities, only: [:index, :create]
-        resources :checklists, only: [:index, :create]
+        resources :checklists, only: [:index, :create] do
+          resources :checklist_items, only: [:index, :create]
+        end
       end
     end
   end
