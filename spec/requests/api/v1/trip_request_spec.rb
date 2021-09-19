@@ -8,8 +8,9 @@ require 'rails_helper'
        park_code: 'grte',
        name: 'Graduation Teton Trip'
      }
+     headers = {"CONTENT_TYPE" => "application/json"}
 
-     post '/api/v1/trips', params: {trip: trip_params}
+     post '/api/v1/trips', headers: headers, params: JSON.generate(trip: trip_params)
 
      expect(response).to be_successful
 

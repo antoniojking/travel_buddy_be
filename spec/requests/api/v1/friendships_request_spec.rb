@@ -24,8 +24,9 @@ RSpec.describe 'Friendship API' do
   it 'creates a new friendship' do
     user1 = create(:user).id
     user2 = create(:user).id
+    headers = {"CONTENT_TYPE" => "application/json"}
 
-    post "/api/v1/users/#{user1}/friendships", params: { friend_id: user2}
+    post "/api/v1/users/#{user1}/friendships", headers: headers, params: JSON.generate({ friend_id: user2})
 
     expect(response).to be_successful
 
