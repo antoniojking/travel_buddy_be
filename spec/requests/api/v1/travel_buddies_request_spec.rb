@@ -29,8 +29,9 @@ require 'rails_helper'
        trip_id: trip.id,
        user_id: user.id
      }
+     headers = {"CONTENT_TYPE" => "application/json"}
 
-     post "/api/v1/trips/#{trip.id}/travel_buddies", params: {travel_buddy: travel_buddy_params}
+     post "/api/v1/trips/#{trip.id}/travel_buddies", headers: headers, params: JSON.generate(travel_buddy_params)
 
      expect(response).to be_successful
 

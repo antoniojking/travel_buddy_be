@@ -65,7 +65,7 @@ GEM
       railties (>= 5.0.0)
     faker (2.19.0)
       i18n (>= 1.6, < 2)
-    faraday (1.7.2)
+    faraday (1.8.0)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -121,6 +121,7 @@ GEM
     marcel (1.0.1)
     method_source (1.0.0)
     mini_mime (1.1.1)
+    mini_portile2 (2.6.1)
     minitest (5.14.4)
     msgpack (1.4.2)
     multi_json (1.15.0)
@@ -128,9 +129,8 @@ GEM
     net-http-persistent (2.9.4)
     net-http-pipeline (1.0.1)
     nio4r (2.5.8)
-    nokogiri (1.12.4-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.12.4-x86_64-darwin)
+    nokogiri (1.12.4)
+      mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     parallel (1.21.0)
     parser (3.0.2.0)
@@ -258,12 +258,7 @@ GEM
     will_paginate (3.3.1)
 
 PLATFORMS
-  arm64-darwin-20
-<<<<<<< HEAD
-  x86_64-linux
-=======
-  x86_64-darwin-20
->>>>>>> 01e3a31eb9ddbb72033ba770c35ebd5fb3117df0
+  ruby
 
 DEPENDENCIES
   bootsnap (>= 1.1.0)
@@ -294,4 +289,4 @@ RUBY VERSION
    ruby 2.7.2p137
 
 BUNDLED WITH
-   2.2.22
+   2.2.26

@@ -30,6 +30,11 @@ RSpec.describe 'Parks API' do
 
     expect(response).to_not be_successful
     expect(response.status).to eq(400)
+
+    error = JSON.parse(response.body, symbolize_names: true)
+
+    expect(error).to have_key(:message)
+    expect(error).to have_key(:status)
   end
 
   it 'edge case: params do not include a state', :vcr do
@@ -37,6 +42,11 @@ RSpec.describe 'Parks API' do
 
     expect(response).to_not be_successful
     expect(response.status).to eq(400)
+
+    error = JSON.parse(response.body, symbolize_names: true)
+
+    expect(error).to have_key(:message)
+    expect(error).to have_key(:status)
   end
 
   it 'sends parks based off of activity query params', :vcr do
@@ -61,6 +71,11 @@ RSpec.describe 'Parks API' do
 
     expect(response).to_not be_successful
     expect(response.status).to eq(400)
+
+    error = JSON.parse(response.body, symbolize_names: true)
+
+    expect(error).to have_key(:message)
+    expect(error).to have_key(:status)
   end
 
   it 'edge case: params do not include a activity', :vcr do
@@ -68,6 +83,11 @@ RSpec.describe 'Parks API' do
 
     expect(response).to_not be_successful
     expect(response.status).to eq(400)
+
+    error = JSON.parse(response.body, symbolize_names: true)
+
+    expect(error).to have_key(:message)
+    expect(error).to have_key(:status)
   end
 
   it 'sends specific national park by parkcode', :vcr do
@@ -89,5 +109,29 @@ RSpec.describe 'Parks API' do
     expect(park[:attributes][:operating_hours]).to be_an(Array)
     expect(park[:attributes]).to have_key(:images)
     expect(park[:attributes][:images]).to be_an(Array)
+  end
+
+  it 'sends specific national park by parkcode', :vcr do
+    get "/api/v1/parks/"
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(400)
+
+    error = JSON.parse(response.body, symbolize_names: true)
+
+    expect(error).to have_key(:message)
+    expect(error).to have_key(:status)
+  end
+
+  it 'sends specific national park by parkcode', :vcr do
+    get '/api/v1/parks/'
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(400)
+
+    error = JSON.parse(response.body, symbolize_names: true)
+
+    expect(error).to have_key(:message)
+    expect(error).to have_key(:status)
   end
 end

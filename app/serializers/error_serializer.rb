@@ -19,4 +19,11 @@ class ErrorSerializer
       "status": "bad request"
     }
   end
+
+  def self.park_params_id_blank_or_missing
+    {
+      "message": "id must present and not missing",
+      "status": "bad request"
+    }
+  end
 end

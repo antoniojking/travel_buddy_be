@@ -5,6 +5,7 @@ class Api::V1::TravelBuddiesController < ApplicationController
   end
 
   def create
+    # user = User.find_by(email: params[:email])
     travel_buddy = TravelBuddy.create(travel_buddy_params)
     render(json: TravelBuddySerializer.new(travel_buddy))
   end
@@ -12,6 +13,6 @@ class Api::V1::TravelBuddiesController < ApplicationController
   private
 
   def travel_buddy_params
-    params.require(:travel_buddy).permit(:user_id, :trip_id)
+    params.permit(:user_id, :trip_id)
   end
 end

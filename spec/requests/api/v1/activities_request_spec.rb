@@ -31,10 +31,47 @@ RSpec.describe 'Activities API' do
     post "/api/v1/trips/#{trip.id}/activities", params: activity_params
 
     expect(response).to be_successful
+    expect(response.status).to eq(201)
 
     activity = Activity.last
 
     expect(activity.trip_id).to eq(trip.id)
     expect(activity.name).to eq("Skiing")
   end
+
+  # xit 'sad path: will not create a new activity for a trip if params are missing or blank' do
+  #   trip = create(:trip)
+  #
+  #   activity_params = {
+  #     name: ''
+  #   }
+  #
+  #   post "/api/v1/trips/#{trip.id}/activities", params: JSON.generate(activity_params)
+  #
+  #   expect(response).to_not be_successful
+  #   expect(response.status).to eq(401)
+  #
+  #   error = JSON.parse(response.body, symbolize_names: true)
+  #
+  #   expect(error).to have_key(:message)
+  #   expect(error).to have_key(:status)
+  # end
+  #
+  # xit 'edge case: will not create a new activity for a trip if params are missing or blank' do
+  #   trip = create(:trip)
+  #
+  #   activity_params = {
+  #     name: ''
+  #   }
+  #
+  #   post "/api/v1/trips/#{trip.id}/activities", params: JSON.generate(activity_params)
+  #
+  #   expect(response).to be_successful
+  #   expect(response.status).to eq(401)
+  #
+  #   error = JSON.parse(response.body, symbolize_names: true)
+  #
+  #   expect(error).to have_key(:message)
+  #   expect(error).to have_key(:status)
+  # end
 end
