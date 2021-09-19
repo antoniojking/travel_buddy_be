@@ -130,11 +130,7 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.12.4-arm64-darwin)
       racc (~> 1.4)
-<<<<<<< HEAD
-    nokogiri (1.12.4-x86_64-linux)
-=======
     nokogiri (1.12.4-x86_64-darwin)
->>>>>>> 01e3a31eb9ddbb72033ba770c35ebd5fb3117df0
       racc (~> 1.4)
     parallel (1.21.0)
     parser (3.0.2.0)
