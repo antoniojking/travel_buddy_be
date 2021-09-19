@@ -13,6 +13,6 @@ class Api::V1::AccommodationsController < ApplicationController
   private
 
   def accommodation_params
-    params.require(:accommodation).permit(:name, :location, :details)
+    params.permit(:name, :location, :details)
   end
 end

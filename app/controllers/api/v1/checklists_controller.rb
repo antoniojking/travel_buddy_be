@@ -13,6 +13,6 @@ class Api::V1::ChecklistsController < ApplicationController
   private
 
   def checklist_params
-    params.require(:checklist).permit(:category, :trip_id)
+    params.permit(:category, :trip_id)
   end
 end
