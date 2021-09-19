@@ -64,7 +64,7 @@ The following table presents each API endpoint and its documentation.
 
 Endpoint | Docs/Example
 ---------|-------------
-Get All Merchants | [docs][get-all-merchants-docs] | [example][get-all-merchants-ex]
+Get All Merchants | [docs][get-all-merchants-docs]
 Get One User | [docs][get-one-user-docs]
 Find or Create User | [docs][find-or-create-user-docs]
 Get User Friendships | [docs][get-user-friendships-docs]

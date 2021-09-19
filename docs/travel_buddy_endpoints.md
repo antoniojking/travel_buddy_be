@@ -583,7 +583,7 @@ Example:
 ```
 ---
 
-# Create Checklists Checklist Item
+# Create Checklist Item
 
 Creates a new checklist item for a checklist.
 
@@ -633,7 +633,7 @@ Example:
   }
 ```
 ---
-# Get National Parks by state
+# Get Parks by State
 
 Returns all National Parks by state.
 
@@ -727,7 +727,7 @@ Example:
    }
 ```
 ---
-# Get National Parks by activity
+# Get Parks by Activity
 
 Returns all National Parks by activity.
 
