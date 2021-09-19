@@ -12,13 +12,13 @@ GET       | `/api/v1/trips/{trip_id}/activities` | Find all activities for a tri
 POST      | `/api/v1/trips/{trip_id}/activities` | Add an activities to a trip | [Link](#)
 GET       | `/api/v1/trips/{trip_id}/travel_buddies` | Find all trip travel buddies | [Link](#get-trip-travel-buddies)
 POST      | `/api/v1/trips/{trip_id}/travel_buddies` | Add a travel buddy to a trip | [Link](#create-trip-travel-buddy)
-GET       | `/api/v1/trips/{trip_id}/checklists` | Find all checklists with checklist items for a trip | [Link](#)
-POST      | `/api/v1/trips/{trip_id}/checklists` | Add a checklists to a trip | [Link](#)
-POST      | `/api/v1/trips/{trip_id}/checklists/{checklist_id}/checklist_items?user_id` | Add a checklist item to a checklist | [Link](#)
-GET       | `/api/v1/parks?state='WY'` |  | [Link](#)
-GET       | `/api/v1/parks?activity='Fishing'` |  | [Link](#)
-GET       | `/api/v1/parks/{park_id}` |  | [Link](#)
-GET       | `/api/v1/weather??` |  | [Link](#)
+GET       | `/api/v1/trips/{trip_id}/checklists` | Find all checklists with checklist items for a trip | [Link](#get-trip-checklists)
+POST      | `/api/v1/trips/{trip_id}/checklists` | Add a checklists to a trip | [Link](#create-trip-checklist)
+POST      | `/api/v1/trips/{trip_id}/checklists/{checklist_id}/checklist_items?user_id` | Add a checklist item to a checklist | [Link](#create-checklist-item)
+GET       | `/api/v1/parks?state='WY'` | Find all NP's by state | [Link](#get-parks-by-state)
+GET       | `/api/v1/parks?activity='Fishing'` | Find all NP's by activity | [Link](#get-parks-by-state)
+GET       | `/api/v1/parks/{park_code}` | Get a NP by the park_code  | [Link](#get-park-by-parkcode)
+GET       | `/api/v1/weather?location='Estes Park'&days=2` | Get current and forecast temps for specific location | [Link](#get-weather)
 GET       | `/api/v1/weather??` |  | [Link](#)
 
 
@@ -477,6 +477,391 @@ Example:
       {"user_id":47,
       "trip_id":39}
     }
+  }
+```
+---
+# Get Trip Checklists
+
+Returns a trips checklists and the checklist items .
+
+```
+GET /api/v1/trips/{trip_id}/checklists
+```
+
+## Parameters
+
+Name        | Data Type | In    | Required/Optional    | Description
+------------|---------|-------|----------------------|------------
+`trip_id`   | Integer | Path | Required | The ID of the trip
+
+Notes:
+-
+
+## Example Request
+
+```
+GET https://travel-buddy-api.herokuapp.com/api/v1/trip/2/checklists
+```
+
+## Example Response
+
+```
+Status: 200 OK
+```
+
+```
+Example:
+  {"data":
+   [{"id":"16",
+     "type":"checklist",
+     "attributes":
+       {"category":"Sugar House",
+       "item_count":0,
+       "items":[]}},
+    {"id":"17",
+    "type":"checklist",
+    "attributes":
+      {"category":"Big Dragon",
+      "item_count":0,
+      "items":[]}},
+    {"id":"18",
+      "type":"checklist",
+      "attributes":
+        {"category":"Belly Curry",
+        "item_count":0,
+        "items":[]}}
+    ]
+  }
+
+```
+---
+# Create Trip Checklist
+
+Creates a new checklist for a trip.
+
+```
+POST /api/v1/trips/{trip_id}/checklists
+```
+
+## Request Body
+
+Attribute Name| Data Type | Description
+--------------|-----------|------------
+`category` | String | New category name
+
+Notes:
+-
+
+## Example Request
+
+```
+POST https://travel-buddy-api.herokuapp.com/api/trips/39/checklists
+```
+With the following example request body:
+
+```
+{
+  category: 'Camping Gear'
+}
+```
+
+## Example Response
+
+```
+Status: 201 Created
+```
+
+```
+Example:
+  {"data":
+    {"id":"35",
+    "type":"checklist",
+    "attributes":
+      {"category":"Camping Gear"}
+    }
+  }
+```
+---
+
+# Create Checklists Checklist Item
+
+Creates a new checklist item for a checklist.
+
+```
+POST /api/v1/trips/{trip_id}/checklists/{checklist_id}/checklist_items
+```
+
+## Request Body
+
+Attribute Name| Data Type | Description
+--------------|-----------|------------
+`name` | String | New checklist item name
+`user_id` | Integer | User ID of who is in charge of the item
+
+Notes:
+-
+
+## Example Request
+
+```
+POST https://travel-buddy-api.herokuapp.com/api/trips/39/checklists/16/checklist_items
+```
+With the following example request body:
+
+```
+{
+  name: 'Sleeping Bag'
+  user_id: 12
+}
+```
+
+## Example Response
+
+```
+Status: 201 Created
+```
+
+```
+Example:
+  {"data":
+    {"id":"35",
+    "type":"checklist_item",
+    "attributes":
+      {"name":"Sleeping Bag",
+      "user_id":12}
+    }
+  }
+```
+---
+# Get National Parks by state
+
+Returns all National Parks by state.
+
+```
+GET /api/v1/parks?state='WY'
+```
+
+## Parameters
+
+Name        | Data Type | In    | Required/Optional    | Description
+------------|---------|-------|----------------------|------------
+`state`   | String | params | Required | The abbreviated state name
+
+Notes:
+-
+
+## Example Request
+
+```
+GET https://travel-buddy-api.herokuapp.com/api/v1/parks?state='WY'
+```
+
+## Example Response
+
+```
+Status: 200 OK
+```
+
+```
+Example:
+{data=>
+  [{"id":"bica",
+    "type":"park",
+    "attributes":
+     {"name":"Bighorn Canyon National Recreation Area",
+      "description":
+       "The vast, wild landscape of Bighorn Canyon National Recreation Area offers visitors unparalleled opportunities to immerse themselves in the natural world, and experience the wonders of this extraordinary place. With over 120,000 acres, one can find an astounding diversity in ecosystems, wildlife, and more than 10,000 years of human history to explore.",
+      "activities":
+       [{"id":"09DF0950-D319-4557-A57E-04CD2F63FF42",
+          "name":"Arts and Culture"},
+        {"id":"CE84DEFA-D692-4165-96DF-D5FF56002E2F",
+          "name":"Theater"},
+        {"id":"D37A0003-8317-4F04-8FB0-4CF0A272E195",
+          "name":"Stargazing"},
+        {"id":"7CE6E935-F839-4FEC-A63E-052B1DEF39D2",
+          "name":"Biking"},
+        {"id":"467DC8B8-0B7D-436D-A026-80A22358F615",
+          "name":"Bookstore and Park Store"}],
+      "contacts":
+       {"phoneNumbers":
+       [{"phoneNumber":"3075485406",
+         "description":"",
+         "extension":"",
+         "type":"Voice"}],
+        "emailAddresses":
+        [{"description":"",
+          "emailAddress":"BICA_media@nps.gov"}]},
+      "directions":
+       "Bighorn Canyon has two districts that are separated by a three hour drive. To get to the North District at Fort Smith, MT from Billings,take Interstate 90 south to Hardin, MT. Turn at exit 495 onto State Highway 313 to St. Xavier and then to Fort Smith, Montana. To get to the South District at Lovell, WY from Billings, MT, take Interstate 90 west. Turn at exit 434 at Laurel, MT. Turn onto US 310 East/US 212 South. Turn at US 310 East to Lovell. The visitor center is on the east side of Lovell.",
+      "operating_hours":
+       [{"exceptions":[],
+         "description":
+          "The park is open every day. \n\nThe Yellowtail Dam visitor center in Fort Smith, MT is only open in the summer from Memorial Day to Labor Day. \n\nThe Cal S. Taggart visitor center in Lovell, WY is open Tuesday - Saturday 8:30 - 4:30 and is closed Sundays and Mondays through the fall.",
+         "standardHours":
+          {"wednesday":"8:30AM - 4:30PM",
+           "monday":"Closed",
+           "thursday":"8:30AM - 4:30PM",
+           "sunday":"Closed",
+           "tuesday":"8:30AM - 4:30PM",
+           "friday":"8:30AM - 4:30PM",
+           "saturday":"8:30AM - 4:30PM"},
+         "name":"Bighorn Canyon National Recreation Area Lovell, WY District"}],
+      "images":
+       [{"credit":"Sharron Genaux",
+         "title":"Yellowtail Dam (Fort Smith, MT District)",
+         "altText":"Summer view of the Yellowtail Dam from the Ok-A-Beh road.",
+         "caption":"Summer view of the Yellowtail Dam from the Ok-A-Beh road. (Fort Smith, MT District)",
+         "url":"https://www.nps.gov/common/uploads/structured_data/3C8210BC-1DD8-B71B-0B15EAD02A4BA4D2.jpg"},
+        {"credit":"Pete Sawtell",
+         "title":"Spring Cactus",
+         "altText":"spring cactus with yellow flowers",
+         "caption":"Spring Cactus",
+         "url":"https://www.nps.gov/common/uploads/structured_data/3C821240-1DD8-B71B-0B082E247EB28DCB.jpg"},
+        {"credit":"Jonathan Welde",
+         "title":"Horseshoe Bend from the Sykes Mountain (Lovell, WY District)",
+         "altText":"Red hills in the foreground with Bighorn Lake in the background with a brilliant blue sky.",
+         "caption":"Horseshoe Bend from the Sykes Mountain (Lovell, WY District)",
+         "url":"https://www.nps.gov/common/uploads/structured_data/3C82191F-1DD8-B71B-0B015D06F1310BA3.jpg"}]}},
+       }
+     ]
+   }
+```
+---
+# Get National Parks by activity
+
+Returns all National Parks by activity.
+
+```
+GET /api/v1/parks?activity='Fishing'
+```
+
+## Parameters
+
+Name        | Data Type | In    | Required/Optional    | Description
+------------|---------|-------|----------------------|------------
+`activity`   | String | params | Required | The activity
+
+Notes:
+-
+
+## Example Request
+
+```
+GET https://travel-buddy-api.herokuapp.com/api/v1/parks?activity='Fishing'
+```
+
+## Example Response
+
+```
+Status: 200 OK
+```
+
+```
+Example:
+  {"data":
+    [{"id":"acad",
+      "type":"activity_park",
+      "attributes":
+        {"name":"Acadia National Park"}
+      },
+     {"id":"alag",
+      "type":"activity_park",   
+      "attributes":
+        {"name":"Alagnak Wild River"}
+      },
+     {"id":"alka",
+      "type":"activity_park", "attributes":
+        {"name":"Ala Kahakai National Historic Trail"}
+      },
+     {"id":"yuch",
+      "type":"activity_park",
+      "attributes":
+        {"name":"Yukon - Charley Rivers National Preserve"}
+      }
+    ]
+  }
+```
+---
+# Get National Park by parkcode
+
+Returns National Park by parkcode.
+
+```
+GET /api/v1/parks/{park_code}
+```
+
+## Parameters
+
+Name        | Data Type | In    | Required/Optional    | Description
+------------|---------|-------|----------------------|------------
+`park_code`   | String | path | Required | The park's park_code
+
+Notes:
+-
+
+## Example Request
+
+```
+GET https://travel-buddy-api.herokuapp.com/api/v1/parks/grte
+```
+
+## Example Response
+
+```
+Status: 200 OK
+```
+
+```
+Example:
+
+```
+---
+# Get Weather
+
+Returns current and forecated temps for a specific location and days.
+
+```
+GET /api/v1/weather
+```
+
+## Parameters
+
+Name        | Data Type | In    | Required/Optional    | Description
+------------|---------|-------|----------------------|------------
+`location`   | String | params | Required | The location you want get weather
+`days`   | Integer | params | Required | The number of days you want forecated weather
+
+Notes:
+-
+
+## Example Request
+
+```
+GET https://travel-buddy-api.herokuapp.com/api/v1/weather?location="Estes Parks"&days=2
+```
+
+## Example Response
+
+```
+Status: 200 OK
+```
+
+```
+Example:
+  {"id":"Estes Park",
+    "type":"weather",
+    "attributes":
+      {"current_temp":89.2,
+       "forecast":
+          [{"date":"2021-09-17",
+          "min_temp":38.5,
+          "max_temp":68.4,
+          "condition":"Partly cloudy"},
+          {"date":"2021-09-18",
+          "min_temp":47.5,
+          "max_temp":76.1,
+          "condition":"Partly cloudy"}],
+       "current_conditions":"Sunny"}
   }
 ```
 ---
