@@ -31,6 +31,13 @@ RSpec.describe 'User API' do
     expect(user[:data][:attributes]).to have_key(:friends)
   end
 
+  it 'sad path: it will not send a user if it cannot find that user' do
+    get "/api/v1/users/1234"
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(404)
+  end
+
   it 'can create a new user' do
     user_params = {
       spotify_id: 'aso98haksjbc09',
