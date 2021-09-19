@@ -1,4 +1,4 @@
-class AccommodationsSerializer
-  include FastJsonapi::ObjectSerializer
-  attributes :name, :location, :details
-end
+# class AccommodationsSerializer
+#   include FastJsonapi::ObjectSerializer
+#   attributes :name, :location, :details
+# end
