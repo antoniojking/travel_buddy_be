@@ -28,7 +28,7 @@ RSpec.describe 'Activities API' do
       name: "Skiing"
     }
 
-    post "/api/v1/trips/#{trip.id}/activities", params: JSON.generate(activity_params)
+    post "/api/v1/trips/#{trip.id}/activities", params: activity_params
 
     expect(response).to be_successful
     expect(response.status).to eq(201)

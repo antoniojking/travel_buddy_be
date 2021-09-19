@@ -22,4 +22,18 @@ RSpec.describe 'Checklist API' do
       expect(checklist[:attributes]).to have_key(:item_count)
     end
   end
+
+  it 'can create a new checklist' do
+    trip = create(:trip)
+    headers = {"CONTENT_TYPE" => "application/json"}
+    params = JSON.generate( checklist: { category: 'Snacks' })
+
+    post "/api/v1/trips/#{trip.id}/checklists", headers: headers, params: params
+
+    expect(response).to be_successful
+    checklist = Checklist.last
+
+    expect(checklist.category).to eq("Snacks")
+    expect(checklist.trip_id).to eq(trip.id)
+  end
 end
