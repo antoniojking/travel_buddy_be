@@ -33,7 +33,7 @@ RSpec.describe 'Checklist API' do
   it 'can create a new checklist' do
     trip = create(:trip)
     headers = {"CONTENT_TYPE" => "application/json"}
-    params = JSON.generate( checklist: { category: 'Snacks' })
+    params = JSON.generate({ category: 'Snacks' })
 
     post "/api/v1/trips/#{trip.id}/checklists", headers: headers, params: params
 

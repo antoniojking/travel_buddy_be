@@ -10,7 +10,7 @@ RSpec.describe 'accommodations api' do
     }
     headers = {"CONTENT_TYPE" => "application/json"}
 
-    post "/api/v1/trips/#{trip.id}/accommodations", headers: headers, params: JSON.generate(accommodation: accommodation_params)
+    post "/api/v1/trips/#{trip.id}/accommodations", headers: headers, params: JSON.generate(accommodation_params)
 
     expect(response).to be_successful
     expect(response.status).to eq(201)

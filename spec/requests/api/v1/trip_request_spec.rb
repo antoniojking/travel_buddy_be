@@ -10,7 +10,7 @@ require 'rails_helper'
      }
      headers = {"CONTENT_TYPE" => "application/json"}
 
-     post '/api/v1/trips', headers: headers, params: JSON.generate(trip: trip_params)
+     post '/api/v1/trips', headers: headers, params: JSON.generate(trip_params)
 
      expect(response).to be_successful
 

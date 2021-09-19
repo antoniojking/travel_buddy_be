@@ -45,8 +45,8 @@ RSpec.describe 'User API' do
       refresh_token: 'qp398cbqwiobc983q4yfkajbsv',
       email: 'test@test.com'
     }
-
-    post '/api/v1/users', params: {user: user_params}
+    headers = {"CONTENT_TYPE" => "application/json"}
+    post '/api/v1/users', headers: headers, params: JSON.generate(user_params)
 
     expect(response).to be_successful
 
@@ -71,8 +71,12 @@ RSpec.describe 'User API' do
 
   it 'can find an existing user' do
     user = create(:user)
+    user_params = {
+      email: user.email
+    }
 
-    post '/api/v1/users', params: {user: {email: user.email}}
+    headers = {"CONTENT_TYPE" => "application/json"}
+    post '/api/v1/users', headers: headers, params: JSON.generate(user_params)
 
     expect(response).to be_successful
 
