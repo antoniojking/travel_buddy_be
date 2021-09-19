@@ -13,7 +13,7 @@ class Api::V1::ParksController < ApplicationController
 
   def show
     if params_id_included_and_not_blank?
-      park = ParkFacade.create_parks_by_state(params[:state])
+      park = ParkFacade.create_parks_by_park_code(params[:id])
       render(json: ParkSerializer.new(park))
     else
       render(json: ErrorSerializer.park_params_id_blank_or_missing, status: :bad_request)
