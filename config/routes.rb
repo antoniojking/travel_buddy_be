@@ -5,10 +5,11 @@ Rails.application.routes.draw do
         resources :friendships, only: [:index, :create]
       end
       resources :parks, only: [:index, :show]
+      resources :weather, only: [:index]
       resources :trips, only: [:create, :show] do
         resources :travel_buddies, only: [:index, :create]
         resources :activities, only: [:index, :create]
-        resources :checklists, only: [:index, :create]      
+        resources :checklists, only: [:index, :create]
       end
     end
   end
