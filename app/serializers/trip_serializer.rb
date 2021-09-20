@@ -6,7 +6,7 @@ class TripSerializer
     object.checklists
   end
 
-  attributes :users do |object|
+  attributes :travel_buddies do |object|
     object.users
   end
 end
