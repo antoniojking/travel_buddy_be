@@ -22,6 +22,8 @@ RSpec.describe 'Parks API' do
       expect(park[:attributes][:operating_hours]).to be_an(Array)
       expect(park[:attributes]).to have_key(:images)
       expect(park[:attributes][:images]).to be_an(Array)
+      expect(park[:attributes]).to have_key(:state)
+      expect(park[:attributes][:state]).to be_an(String)
     end
   end
 

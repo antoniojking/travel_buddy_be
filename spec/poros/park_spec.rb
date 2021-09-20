@@ -31,7 +31,8 @@ RSpec.describe Park do
       }],
       images: [{
         url: "https://www.nps.gov/common/uploads/structured_data/3C7ECCCF-1DD8-B71B-0B4CB4FB1834BC1D.jpg"
-        }]
+        }],
+        states: 'CO'
     }
     park = Park.new(attributes)
 
@@ -44,5 +45,6 @@ RSpec.describe Park do
     expect(park.directions).to eq(attributes[:directionsInfo])
     expect(park.operating_hours).to eq(attributes[:operatingHours])
     expect(park.images).to eq(attributes[:images])
+    expect(park.state).to eq(attributes[:states])
   end
 end
