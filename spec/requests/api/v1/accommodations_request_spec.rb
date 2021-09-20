@@ -154,7 +154,7 @@ RSpec.describe 'accommodations api' do
       expect(response.status).to eq(404)
     end
 
-    it 'will not deletee an accommodation if id does not match an existing accommosation' do
+    it 'will not delete an accommodation if id does not match an existing accommosation' do
       user = create(:user)
       trip = create(:trip, user: user)
       accommodation_params = {
