@@ -54,6 +54,38 @@ require 'rails_helper'
       expect(trip[:data][:attributes]).to have_key(:park_code)
       expect(trip[:data][:attributes]).to have_key(:park_name)
     end
+
+    it 'can update an existing  trip' do
+      user = create(:user)
+      existing_trip = create(:trip, user: user)
+      trip_params = {
+        start_date: DateTime.new(2021, 11, 18),
+        end_date: DateTime.new(2021, 12, 18),
+        name: 'Graduation Teton Trip'
+      }
+      headers = {"CONTENT_TYPE" => "application/json"}
+
+      patch "/api/v1/trips/#{existing_trip.id}", headers: headers, params: JSON.generate(trip_params)
+
+      expect(response).to be_successful
+
+      trip = JSON.parse(response.body, symbolize_names: true)
+
+
+      expect(trip).to have_key(:data)
+      expect(trip[:data]).to have_key(:type)
+      expect(trip[:data]).to have_key(:attributes)
+      expect(trip[:data][:attributes]).to have_key(:name)
+      expect(trip[:data][:attributes]).to have_key(:start_date)
+      expect(trip[:data][:attributes]).to have_key(:end_date)
+      expect(trip[:data][:attributes]).to have_key(:park_code)
+
+      updated_trip = Trip.find(existing_trip.id)
+
+      expect(updated_trip.name).to eq(trip_params[:name])
+      expect(updated_trip.start_date).to eq(trip_params[:start_date])
+      expect(updated_trip.end_date).to eq(trip_params[:end_date])
+    end
   end
 
   describe 'sad path' do
