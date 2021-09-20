@@ -5,7 +5,7 @@ class ChecklistSerializer
   attributes :item_count do |object|
     object.checklist_items.count
   end
-
+# Add user email to response
   attributes :items do |object|
     object.checklist_items
   end
