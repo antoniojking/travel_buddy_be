@@ -71,6 +71,9 @@ Get User Friendships | [docs][get-user-friendships-docs]
 Create User Friendship | [docs][create-user-friendships-docs]
 Get One Trip | [docs][get-one-trip-docs]
 Create Trip | [docs][create-user-trip-docs]
+Update Trip | [docs][update-user-trip-docs]
+Get Trips Accommodations | [docs][get-trips-accommodations-docs]
+Create Trip Accommodation | [docs][create-trip-accommodation-docs]
 Get Trips Travel Buddies | [docs][get-trips-travel-buddies-docs]
 Create Trip Travel Buddy | [docs][create-trip-travel-buddy-docs]
 Get Trip Checklists | [docs][get-trip-checklists-docs]
@@ -130,6 +133,9 @@ Get Weather | [docs][get-weather-docs]
 [create-user-friendships-docs]: /doc/travel_buddy_endpoints.md#create-user-friendship
 [get-one-trip-docs]: /doc/travel_buddy_endpoints.md#get-one-trip
 [create-user-trip-docs]: /doc/travel_buddy_endpoints.md#create-user-trip
+[update-user-trip-docs]: /doc/travel_buddy_endpoints.md#update-user-trip
+[get-trips-accommodations-docs]: /doc/travel_buddy_endpoints.md#get-trip-accommodations
+[create-trip-accommodation-docs]: /doc/travel_buddy_endpoints.md#create-trip-accommodation
 [get-trips-travel-buddies-docs]: /doc/travel_buddy_endpoints.md#get-trip-travel-buddies
 [create-trip-travel-buddy-docs]: /doc/travel_buddy_endpoints.md#create-trip-travel-buddy
 [get-trip-checklists-docs]: /doc/travel_buddy_endpoints.md#get-trip-checklists
