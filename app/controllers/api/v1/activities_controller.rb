@@ -5,7 +5,8 @@ class Api::V1::ActivitiesController < ApplicationController
   end
 
   def create
-    activity = Activity.create(activity_params)
+    trip = Trip.find(params[:trip_id])
+    activity = Activity.create!(activity_params)
     render(json: activity)
   end
 
