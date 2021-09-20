@@ -72,7 +72,7 @@ RSpec.describe 'accommodations api' do
       accommodation = create(:accommodation, trip: trip)
       previous_name = accommodation.name
       accommodation_params = {
-        name: 'Yosemit Lodge'
+        name: 'Yosemite Lodge'
       }
       headers = {"CONTENT_TYPE" => "application/json"}
 
@@ -144,7 +144,7 @@ RSpec.describe 'accommodations api' do
       user = create(:user)
       trip = create(:trip, user: user)
       accommodation_params = {
-        name: 'Yosemit Lodge'
+        name: 'Yosemite Lodge'
       }
       headers = {"CONTENT_TYPE" => "application/json"}
 
