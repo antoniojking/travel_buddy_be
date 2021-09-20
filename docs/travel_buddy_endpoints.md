@@ -8,9 +8,9 @@ GET       | `/api/v1/users/{user_id}/friendships` | Find all user friendships. |
 POST      | `/api/v1/users/{user_id}/friendships` | Add a friend to user friendships. | [Link](#create-user-friendship)
 GET       | `/api/v1/trips/{trip_id}` | Get a single trip. | [Link](#get-one-trip)
 POST      | `/api/v1/trips` | Add a trip to user trips. | [Link](#create-user-trip)
-PATCH      | `/api/v1/trips` | Add a trip to user trips. | [Link](#create-user-trip)
-GET       | `/api/v1/trips/{trip_id}/accommodations` | Find all checklists with checklist items for a trip | [Link](#)
-POST      | `/api/v1/trips/{trip_id}/accommodations` | Add a checklists to a trip | [Link](#)
+PATCH     | `/api/v1/trips/{trip_id}` | Update a trips information. | [Link](#update-user-trip)
+GET       | `/api/v1/trips/{trip_id}/accommodations` | Find all checklists with checklist items for a trip | [Link](#get-trip-accommodations)
+POST      | `/api/v1/trips/{trip_id}/accommodations` | Add a checklists to a trip | [Link](#create-trip-accommodation)
 GET       | `/api/v1/trips/{trip_id}/travel_buddies` | Find all trip travel buddies | [Link](#get-trip-travel-buddies)
 POST      | `/api/v1/trips/{trip_id}/travel_buddies` | Add a travel buddy to a trip | [Link](#create-trip-travel-buddy)
 GET       | `/api/v1/trips/{trip_id}/checklists` | Find all checklists with checklist items for a trip | [Link](#get-trip-checklists)
@@ -65,7 +65,8 @@ Example 1:
       "type": "user",
       "attributes": {
         "email": "email@email.com",
-        "authorization_token": "alskjfhadlskjfh9823y489",
+        "spotify_id": "asljkbadskjfba"
+        "token": "alskjfhadlskjfh9823y489",
         "refresh_token": "2398rcbjwiuf834hf",
         "trips": [
           { "id": "17",
@@ -76,6 +77,7 @@ Example 1:
             "user_id": "2",
             "created_at": "2021-09-17T19:21:31.191Z",
             "updated_at": "2021-09-17T19:21:31.191Z",
+            "park_name": "Teton National Park",
           },
           { "id": "19",
             "start_date": "2021-12-19T00:00:00.000Z",
@@ -85,17 +87,18 @@ Example 1:
             "user_id": "12",
             "created_at": "2021-09-17T19:21:31.191Z",
             "updated_at": "2021-09-17T19:21:31.191Z",
+            "park_name": "Teton National Park",
           }]
         "friends": [
           { "id": "12",
-            "authorization_token": "alskjfhadlskfesfjfh9823y489",
+            "token": "alskjfhadlskfesfjfh9823y489",
             "refresh_token": "2398rcbjwiuf8dsfe34hf",
             "email": "test@email.com",
             "created_at": "2021-09-17T19:21:31.191Z",
             "updated_at": "2021-09-17T19:21:31.191Z",
           },
           { "id": "13",
-            "authorization_token": "alskjfhaddsfelskjfh9823y489",
+            "token": "alskjfhaddsfelskjfh9823y489",
             "refresh_token": "2398rcbjwiuf83dfe4hf",
             "email": "another@email.com",
             "created_at": "2021-09-17T19:21:31.191Z",
@@ -120,8 +123,9 @@ POST /api/v1/users
 Attribute Name| Data Type | Description
 --------------|-----------|------------
 `email` | String | The users email
-`authorization_token` | String | The users authorization token
+`token` | String | The users authorization token
 `refresh_token` | String | The users refresh token
+`spotify_id` | String | The spotify ID
 
 Notes:
 -
@@ -137,9 +141,9 @@ With the following example request body:
 ```
 {
   "email": "email@email.com",
-  "authorization_token": "lkj429jspfa302f",
+  "token": "lkj429jspfa302f",
   "refresh_token": "2jlkfao3402as42",
-  "merchant_id": 43
+  "spotify_id": "aso98haksjbc09"
 }
 ```
 
@@ -158,7 +162,8 @@ Status: 201 Created
     "type": "user",
     "attributes":
      {"email":"test@test.com",
-      "authorization_token":"109283yyrbadso8734gr",
+     "spotify_id": "aso98haksjbc09",
+      "token":"109283yyrbadso8734gr",
       "refresh_token":"qp398cbqwiobc983q4yfkajbsv",
       "trips":[],
       "friends":[]}
@@ -179,6 +184,7 @@ Status: 201 OK
     "type": "user",
     "attributes":
      {"email":"test@test.com",
+     "spotify_id": "aso98haksjbc09",
       "authorization_token":"109283yyrbadso8734gr",
       "refresh_token":"qp398cbqwiobc983q4yfkajbsv",
       "trips":[],
@@ -314,33 +320,45 @@ Status: 200 OK
 
 ```
 Example:
-{:data=>
-  {:id=>"2",
-   :type=>"trip",
-   :attributes=>
-    {:name=>"Teton National Park",
-     :start_date=>"2021-11-18T00:00:00.000Z",
-     :end_date=>"2021-11-22T00:00:00.000Z",
-     :park_code=>"grte",
-     :park_name=>"Rakaposhi-Haramosh Karakoram",
-     :checklists=>
-      [{:id=>1, :trip_id=>2, :category=>"Belly Pub", :created_at=>"2021-09-19T22:22:37.068Z", :updated_at=>"2021-09-19T22:22:37.068Z"},
-       {:id=>2, :trip_id=>2, :category=>"Blue Burger", :created_at=>"2021-09-19T22:22:37.071Z", :updated_at=>"2021-09-19T22:22:37.071Z"}],
-     :users=>
-      [{:id=>1,
-        :token=>"alskjfhadlskjfh9823y489",
-        :refresh_token=>"2398rcbjwiuf834hf",
-        :email=>"frederic_lehner@casper.info",
-        :created_at=>"2021-09-19T22:22:37.029Z",
-        :updated_at=>"2021-09-19T22:22:37.029Z",
-        :spotify_id=>"asljkbadskjfba"},
-       {:id=>2,
-        :token=>"alskjfhadlskjfh9823y489",
-        :refresh_token=>"2398rcbjwiuf834hf",
-        :email=>"scottie_schultz@reichel.net",
-        :created_at=>"2021-09-19T22:22:37.035Z",
-        :updated_at=>"2021-09-19T22:22:37.035Z",
-        :spotify_id=>"asljkbadskjfba"}]}}}```
+  {:"data":
+    {"id":"10",
+     "type":"trip",
+     "attributes":
+      {"name":"Teton National Park",
+       "start_date":"2021-11-18T00:00:00.000Z",
+       "end_date":"2021-11-22T00:00:00.000Z",
+       "park_code":"grte",
+       "park_name":"Rakaposhi-Haramosh Karakoram",
+       "checklists":
+          [{"id":1,
+          "trip_id":2,
+          "category":"Belly Pub",
+          "created_at":"2021-09-19T22:22:37.068Z",
+          "updated_at":"2021-09-19T22:22:37.068Z"},
+          {"id":2,
+          "trip_id":2,
+          "category":"Blue Burger",
+          "created_at":"2021-09-19T22:22:37.071Z",
+          "updated_at":"2021-09-19T22:22:37.071Z"}],
+       "travel_buddies":
+        [{"id":1,
+          "token":"alskjfhadlskjfh9823y489",
+          "refresh_token":"2398rcbjwiuf834hf",
+          "email":"frederic_lehner@casper.info",
+          "created_at":"2021-09-19T22:22:37.029Z",
+          "updated_at":"2021-09-19T22:22:37.029Z",
+          "spotify_id":"asljkbadskjfba"},
+         {"id":2,
+          "token":"alskjfhadlskjfh9823y489",
+          "refresh_token":"2398rcbjwiuf834hf",
+          "email":"scottie_schultz@reichel.net",
+          "created_at":"2021-09-19T22:22:37.035Z",
+          "updated_at":"2021-09-19T22:22:37.035Z",
+          "spotify_id":"asljkbadskjfba"}]
+        }
+      }
+    }
+```
 
 ---
 # Create User Trip
@@ -355,10 +373,12 @@ POST /api/v1/trips
 
 Attribute Name| Data Type | Description
 --------------|-----------|------------
-`start_date` | Integer | The friends user id
-`end_date` | Integer | The friends user id
-`park_code` | String | The friends user id
-`name` | String | The friends user id
+`start_date` | DateTime | The start date of the trip
+`end_date` | DateTime | The end date of the trip
+`park_code` | String | The trips park code
+`park_name` | String | The trips park name
+`name` | String | The name of the trip
+`user_id` | Integer | The user ID who created the trip
 
 Notes:
 -
@@ -375,7 +395,9 @@ With the following example request body:
   start_date: DateTime.new(2021, 11, 18),
   end_date: DateTime.new(2021, 12, 18),
   park_code: 'grte',
+  park_name: 'Grand Teton Nation Park'
   name: 'Graduation Teton Trip'
+  user_id: 13
 }
 ```
 
@@ -394,10 +416,185 @@ Example:
       {"name":"Graduation Teton Trip",
        "start_date":"2021-11-18T00:00:00.000Z",
        "end_date":"2021-12-18T00:00:00.000Z",
-       "park_code":"grte"}
-       }}
+       "park_code":"grte",
+       "park_name":"Grand Teton National Park",
+       "user_id":13},
+       "checklists": [],
+       "travel_buddies":
+        [{"id":13,
+        "token":"alskjfhadlskjfh9823y489",
+        "refresh_token":"2398rcbjwiuf834hf",
+        "email":"willis@lowe.org",
+        "created_at":"2021-09-20T13:01:32.570Z",
+        "updated_at":"2021-09-20T13:01:32.570Z",
+        "spotify_id":"asljkbadskjfba"}]
+      }
+    }
+  }
 ```
 ---
+# Update User Trip
+
+Update user trip with given attributes.
+
+```
+POST /api/v1/trips/{trip_id}
+```
+
+## Request Body
+
+Attribute Name| Data Type | Description
+--------------|-----------|------------
+`start_date` | DateTime | The start date of the trip
+`end_date` | DateTime | The end date of the trip
+`name` | String | The name of the trip
+
+Notes:
+-
+
+## Example Request
+
+```
+POST https://travel-buddy-api.herokuapp.com/api/trips/7
+```
+With the following example request body:
+
+```
+{
+  start_date: DateTime.new(2021, 11, 18),
+  end_date: DateTime.new(2021, 12, 18),
+  name: 'Graduation Teton Trip'
+}
+```
+
+## Example Response
+
+```
+Status: 201 Created
+```
+
+```
+Example:
+  {"data":
+    {"id":"7",
+     "type":"trip",
+     "attributes":
+      {"name":"Graduation Teton Trip",
+       "start_date":"2021-11-18T00:00:00.000Z",
+       "end_date":"2021-12-18T00:00:00.000Z",
+       "park_code":"grte",
+       "park_name":"Grand Teton National Park",
+       "user_id":16},
+       "checklists": [],
+       "travel_buddies":[]
+      }
+    }
+  }
+```
+---
+# Get Trip Accommodations
+
+Returns a trips accommodations.
+
+```
+GET /api/v1/trips/{trip_id}/accommodations
+```
+
+## Parameters
+
+Name        | Data Type | In    | Required/Optional    | Description
+------------|---------|-------|----------------------|------------
+`trip_id`   | Integer | Path | Required | The ID of the trip
+
+Notes:
+-
+
+## Example Request
+
+```
+GET https://travel-buddy-api.herokuapp.com/api/v1/trip/2/accommodations
+```
+
+## Example Response
+
+```
+Status: 200 OK
+```
+
+```
+Example:
+  {"data":
+    [{"id":"2",
+      "type":"accommodation",
+      "attributes":
+        {"name":"Tripoli",
+        "location":"The Crown",
+        "details":"Chuck Norris burst the dot com bubble."}},
+     {"id":"3",
+      "type":"accommodation",
+      "attributes":
+        {"name":"Apia",
+        "location":"Saser Kangri I",
+        "details":"Chuck Norris can access private methods."}}
+      ]
+    }
+```
+---
+
+# Create Trip Accommodation
+
+Creates accommodation for a trip with given attributes.
+
+```
+POST /api/v1/trips/{trip_id}/accommodations
+```
+
+## Request Body
+
+Attribute Name| Data Type | Description
+--------------|-----------|------------
+`name` | String | The accommodation name
+`location` | String | The accommodation location
+`details` | String | The accommodation details
+
+Notes:
+-
+
+## Example Request
+
+```
+POST https://travel-buddy-api.herokuapp.com/api/trips/39/accommodations
+```
+With the following example request body:
+
+```
+{
+  "name": 'Camp 4',
+  "location": 'Yosemite Valley',
+  "details": 'Pitch your test behind the large boulder'
+}
+```
+
+## Example Response
+
+```
+Status: 201 Created
+```
+
+```
+Example:
+  {"data":
+    {"id":"1",
+     "type":"accommodation",
+     "attributes":
+      {"name":"Camp 4",
+       "location":"Yosemite Valley",
+        "details":"Pitch your test behind the large boulder"}
+    }
+  }
+```
+---
+
 # Get Trip Travel Buddies
 
 Returns a trips travel buddies.
@@ -529,13 +726,27 @@ Example:
      "attributes":
        {"category":"Sugar House",
        "item_count":0,
-       "items":[]}},
+       "items":
+         [{"id":1,
+           "checklist_id":16,
+           "user_id":25,
+           "name":"Tent",
+           "created_at":"2021-09-20T13:38:40.882Z",
+           "updated_at":"2021-09-20T13:38:40.882Z"         
+          }]}},
     {"id":"17",
     "type":"checklist",
     "attributes":
       {"category":"Big Dragon",
       "item_count":0,
-      "items":[]}},
+      "items":
+        [{"id":2,
+         "checklist_id":17,
+         "user_id":26,
+         "name":"Pick Axe",
+         "created_at":"2021-09-20T13:38:40.886Z",
+         "updated_at":"2021-09-20T13:38:40.886Z"
+        }]}},
     {"id":"18",
       "type":"checklist",
       "attributes":
@@ -573,7 +784,7 @@ With the following example request body:
 
 ```
 {
-  category: 'Camping Gear'
+  category: 'Snacks'
 }
 ```
 
@@ -586,10 +797,13 @@ Status: 201 Created
 ```
 Example:
   {"data":
-    {"id":"35",
+    {"id":"8",
     "type":"checklist",
     "attributes":
-      {"category":"Camping Gear"}
+      {"category":"Snacks",
+      "trip_id":15,
+      "item_count":0,
+      "items":[]}
     }
   }
 ```
@@ -640,7 +854,8 @@ Example:
     "type":"checklist_item",
     "attributes":
       {"name":"Sleeping Bag",
-      "user_id":12}
+      "user_id":12
+      "user_email":"adriana@moen.info"}
     }
   }
 ```
