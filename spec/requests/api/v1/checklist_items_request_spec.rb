@@ -17,7 +17,6 @@ RSpec.describe 'checklist items api' do
     post "/api/v1/trips/#{trip.id}/checklists/#{checklist.id}/checklist_items", headers: headers, params: JSON.generate(checklist_item_params)
 
     expect(response).to be_successful
-    expect(response.status).to eq(201)
 
     checklist_item = ChecklistItem.last
 

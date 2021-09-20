@@ -1,8 +1,5 @@
 class Trip < ApplicationRecord
-  validates :start_date, presence: true
-  validates :end_date, presence: true
   validates :park_code, presence: true
-  validates :name, presence: true
   validates :park_name, presence: true
 
   has_many :activities

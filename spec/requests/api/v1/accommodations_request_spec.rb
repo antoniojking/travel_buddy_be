@@ -7,14 +7,13 @@ RSpec.describe 'accommodations api' do
     accommodation_params = {
       name: 'Camp 4',
       location: 'Yosemite Valley',
-      details: 'Pitch your test behind the large boulder',
+      details: 'Pitch your test behind the large boulder'
     }
     headers = {"CONTENT_TYPE" => "application/json"}
 
     post "/api/v1/trips/#{trip.id}/accommodations", headers: headers, params: JSON.generate(accommodation_params)
 
     expect(response).to be_successful
-    expect(response.status).to eq(201)
 
     accommodation = Accommodation.last
 

@@ -8,17 +8,18 @@ require 'rails_helper'
         start_date: DateTime.new(2021, 11, 18),
         end_date: DateTime.new(2021, 12, 18),
         park_code: 'grte',
+        park_name: 'Rocky Mountain National Park',
         name: 'Graduation Teton Trip',
         user_id: user.id
       }
       headers = {"CONTENT_TYPE" => "application/json"}
- 
+
       post '/api/v1/trips', headers: headers, params: JSON.generate(trip_params)
- 
+
       expect(response).to be_successful
- 
+
       trip = JSON.parse(response.body, symbolize_names: true)
- 
+
       expect(trip).to have_key(:data)
       expect(trip[:data]).to have_key(:type)
       expect(trip[:data]).to have_key(:attributes)
@@ -27,7 +28,7 @@ require 'rails_helper'
       expect(trip[:data][:attributes]).to have_key(:end_date)
       expect(trip[:data][:attributes]).to have_key(:park_code)
     end
- 
+
     it 'can send trip by trip id' do
       user = create(:user)
       trip = create(:trip, user: user)
@@ -36,14 +37,14 @@ require 'rails_helper'
       travel_buddy1 = TravelBuddy.create!(user: user2, trip: trip)
       checklist = create(:checklist, trip: trip)
       checklist2 = create(:checklist, trip: trip)
- 
- 
+
+
       get "/api/v1/trips/#{trip.id}"
- 
+
       expect(response).to be_successful
- 
+
       trip = JSON.parse(response.body, symbolize_names: true)
- 
+
       expect(trip).to have_key(:data)
       expect(trip[:data]).to have_key(:type)
       expect(trip[:data]).to have_key(:attributes)
@@ -64,11 +65,17 @@ require 'rails_helper'
         name: 'Graduation Teton Trip',
         user_id: user.id
       }
+
       headers = {"CONTENT_TYPE" => "application/json"}
- 
+
       post '/api/v1/trips', headers: headers, params: JSON.generate(trip_params)
 
       expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+
+      error = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error).to have_key(:message)
     end
   end
  end
