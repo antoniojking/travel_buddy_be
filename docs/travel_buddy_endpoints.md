@@ -8,24 +8,20 @@ GET       | `/api/v1/users/{user_id}/friendships` | Find all user friendships. |
 POST      | `/api/v1/users/{user_id}/friendships` | Add a friend to user friendships. | [Link](#create-user-friendship)
 GET       | `/api/v1/trips/{trip_id}` | Get a single trip. | [Link](#get-one-trip)
 POST      | `/api/v1/trips` | Add a trip to user trips. | [Link](#create-user-trip)
-GET       | `/api/v1/trips/{trip_id}/activities` | Find all activities for a trip | [Link](#)
-POST      | `/api/v1/trips/{trip_id}/activities` | Add an activities to a trip | [Link](#)
+PATCH      | `/api/v1/trips` | Add a trip to user trips. | [Link](#create-user-trip)
+GET       | `/api/v1/trips/{trip_id}/accommodations` | Find all checklists with checklist items for a trip | [Link](#)
+POST      | `/api/v1/trips/{trip_id}/accommodations` | Add a checklists to a trip | [Link](#)
 GET       | `/api/v1/trips/{trip_id}/travel_buddies` | Find all trip travel buddies | [Link](#get-trip-travel-buddies)
 POST      | `/api/v1/trips/{trip_id}/travel_buddies` | Add a travel buddy to a trip | [Link](#create-trip-travel-buddy)
 GET       | `/api/v1/trips/{trip_id}/checklists` | Find all checklists with checklist items for a trip | [Link](#get-trip-checklists)
 POST      | `/api/v1/trips/{trip_id}/checklists` | Add a checklists to a trip | [Link](#create-trip-checklist)
-POST      | `/api/v1/trips/{trip_id}/checklists/{checklist_id}/checklist_items?user_id` | Add a checklist item to a checklist | [Link](#create-checklist-item)
+POST      | `/api/v1/trips/{trip_id}/checklists/{checklist_id}/checklist_items` | Add a checklist item to a checklist | [Link](#create-checklist-item)
 GET       | `/api/v1/parks?state='WY'` | Find all NP's by state | [Link](#get-parks-by-state)
 GET       | `/api/v1/parks?activity='Fishing'` | Find all NP's by activity | [Link](#get-parks-by-state)
 GET       | `/api/v1/parks/{park_code}` | Get a NP by the park_code  | [Link](#get-park-by-parkcode)
 GET       | `/api/v1/weather?location='Estes Park'&days=2` | Get current and forecast temps for specific location | [Link](#get-weather)
-GET       | `/api/v1/weather??` |  | [Link](#)
-
-
 
 NEED ADDED
-GET       | `/api/v1/trips/{trip_id}/accommodations` | Find all checklists with checklist items for a trip | [Link](#)
-POST      | `/api/v1/trips/{trip_id}/accommodations` | Add a checklists to a trip | [Link](#)
 PATCH for all
 DESTROY for some
 ---
@@ -173,7 +169,7 @@ Status: 201 Created
 If the user already exists:
 
 ```
-Status: 200 OK
+Status: 201 OK
 ```
 
 ```
@@ -264,7 +260,7 @@ With the following example request body:
 
 ```
 {
-  "freind_id": 12,
+  "friend_id": 12,
 }
 ```
 
@@ -318,17 +314,33 @@ Status: 200 OK
 
 ```
 Example:
-  {"data":
-    {"id":"10",
-    "type":"trip",
-    "attributes":
-      {"name":"Teton National Park",
-       "start_date":"2021-11-20T00:00:00.000Z",
-       "end_date":"2021-11-24T00:00:00.000Z",
-       "park_code":"grte"}
-       }
-     }
-```
+{:data=>
+  {:id=>"2",
+   :type=>"trip",
+   :attributes=>
+    {:name=>"Teton National Park",
+     :start_date=>"2021-11-18T00:00:00.000Z",
+     :end_date=>"2021-11-22T00:00:00.000Z",
+     :park_code=>"grte",
+     :park_name=>"Rakaposhi-Haramosh Karakoram",
+     :checklists=>
+      [{:id=>1, :trip_id=>2, :category=>"Belly Pub", :created_at=>"2021-09-19T22:22:37.068Z", :updated_at=>"2021-09-19T22:22:37.068Z"},
+       {:id=>2, :trip_id=>2, :category=>"Blue Burger", :created_at=>"2021-09-19T22:22:37.071Z", :updated_at=>"2021-09-19T22:22:37.071Z"}],
+     :users=>
+      [{:id=>1,
+        :token=>"alskjfhadlskjfh9823y489",
+        :refresh_token=>"2398rcbjwiuf834hf",
+        :email=>"frederic_lehner@casper.info",
+        :created_at=>"2021-09-19T22:22:37.029Z",
+        :updated_at=>"2021-09-19T22:22:37.029Z",
+        :spotify_id=>"asljkbadskjfba"},
+       {:id=>2,
+        :token=>"alskjfhadlskjfh9823y489",
+        :refresh_token=>"2398rcbjwiuf834hf",
+        :email=>"scottie_schultz@reichel.net",
+        :created_at=>"2021-09-19T22:22:37.035Z",
+        :updated_at=>"2021-09-19T22:22:37.035Z",
+        :spotify_id=>"asljkbadskjfba"}]}}}```
 
 ---
 # Create User Trip
