@@ -9,4 +9,8 @@ class TripSerializer
   attributes :travel_buddies do |object|
     object.users
   end
+
+  attributes :accommodations do |object|
+    object.accommodations
+  end
 end

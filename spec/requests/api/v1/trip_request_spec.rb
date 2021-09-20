@@ -53,6 +53,8 @@ require 'rails_helper'
       expect(trip[:data][:attributes]).to have_key(:end_date)
       expect(trip[:data][:attributes]).to have_key(:park_code)
       expect(trip[:data][:attributes]).to have_key(:park_name)
+      expect(trip[:data][:attributes]).to have_key(:travel_buddies)
+      expect(trip[:data][:attributes]).to have_key(:accommodations)
     end
 
     it 'can update an existing  trip' do
