@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resources :parks, only: [:index, :show]
       resources :weather, only: [:index]
       resources :trips, only: [:create, :show, :update] do
-        resources :accommodations, only: [:index, :create]
+        resources :accommodations, except: [:new, :edit]
         resources :travel_buddies, only: [:index, :create]
         resources :activities, only: [:index, :create]
         resources :checklists, only: [:index, :create] do
