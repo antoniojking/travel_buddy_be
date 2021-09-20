@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'accommodations api' do
+  describe 'happy path' do
   it 'can create a new accommodation' do
-    trip = create(:trip)
+    user = create(:user)
+    trip = create(:trip, user: user)
     accommodation_params = {
       name: 'Camp 4',
       location: 'Yosemite Valley',
@@ -13,7 +15,6 @@ RSpec.describe 'accommodations api' do
     post "/api/v1/trips/#{trip.id}/accommodations", headers: headers, params: JSON.generate(accommodation_params)
 
     expect(response).to be_successful
-    expect(response.status).to eq(201)
 
     accommodation = Accommodation.last
 
@@ -23,24 +24,47 @@ RSpec.describe 'accommodations api' do
   end
 
   it 'can send a list of a trips accommodations' do
-    trip = create(:trip)
-    accommodation1 = create(:accommodation, trip: trip)
-    accommodation2 = create(:accommodation, trip: trip)
+      user = create(:user)
+      trip = create(:trip, user: user)
+      accommodation1 = create(:accommodation, trip: trip)
+      accommodation2 = create(:accommodation, trip: trip)
 
-    get "/api/v1/trips/#{trip.id}/accommodations"
+      get "/api/v1/trips/#{trip.id}/accommodations"
 
-    expect(response).to be_successful
+      expect(response).to be_successful
 
-    accommodations = JSON.parse(response.body, symbolize_names: true)
+      accommodations = JSON.parse(response.body, symbolize_names: true)
 
-    expect(accommodations).to have_key(:data)
+      expect(accommodations).to have_key(:data)
 
-    accommodations[:data].each do |accommodation|
-      expect(accommodation).to have_key(:id)
-      expect(accommodation).to have_key(:attributes)
-      expect(accommodation[:attributes]).to have_key(:name)
-      expect(accommodation[:attributes]).to have_key(:location)
-      expect(accommodation[:attributes]).to have_key(:details)
+      accommodations[:data].each do |accommodation|
+        expect(accommodation).to have_key(:id)
+        expect(accommodation).to have_key(:attributes)
+        expect(accommodation[:attributes]).to have_key(:name)
+        expect(accommodation[:attributes]).to have_key(:location)
+        expect(accommodation[:attributes]).to have_key(:details)
+      end
     end
   end
-end
+
+  describe 'sad path' do
+    it 'will not make a new accommodation if some params are missing' do
+      user = create(:user)
+      trip = create(:trip, user: user)
+      accommodation_params = {
+        name: 'Camp 4',
+        location: 'Yosemite Valley'
+      }
+      headers = {"CONTENT_TYPE" => "application/json"}
+
+      post "/api/v1/trips/#{trip.id}/accommodations", headers: headers, params: JSON.generate(accommodation_params)
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+
+      error = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error).to have_key(:message)
+    end
+  end
+  end

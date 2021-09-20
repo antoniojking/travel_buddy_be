@@ -2,18 +2,18 @@ require 'rails_helper'
 
 RSpec.describe 'User API' do
   it 'can send one user info' do
-    user1 = create(:user)
+    user = create(:user)
     user2 = create(:user)
-    friendship = Friendship.create!(user: user1, friend: user2)
-    trip = create(:trip)
+    friendship = Friendship.create!(user: user, friend: user2)
+    trip = create(:trip, user: user)
     travel_buddy = TravelBuddy.create!(trip: trip, user: user2)
-    travel_buddy2 = TravelBuddy.create!(trip: trip, user: user1)
+    travel_buddy2 = TravelBuddy.create!(trip: trip, user: user)
 
-    trip2 = create(:trip, name: 'Grand Canyon')
-    travel_buddy3 = TravelBuddy.create!(trip: trip2, user: user1)
+    trip2 = create(:trip, name: 'Grand Canyon', user: user2)
+    travel_buddy3 = TravelBuddy.create!(trip: trip2, user: user)
     travel_buddy4 = TravelBuddy.create!(trip: trip2, user: user2)
 
-    get "/api/v1/users/#{user1.id}"
+    get "/api/v1/users/#{user.id}"
 
     expect(response).to be_successful
 

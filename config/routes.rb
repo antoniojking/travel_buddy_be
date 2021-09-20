@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       end
       resources :parks, only: [:index, :show]
       resources :weather, only: [:index]
-      resources :trips, only: [:create, :show] do
+      resources :trips, only: [:create, :show, :update] do
         resources :accommodations, only: [:index, :create]
         resources :travel_buddies, only: [:index, :create]
         resources :activities, only: [:index, :create]
