@@ -6,7 +6,7 @@ class Api::V1::AccommodationsController < ApplicationController
 
   def create
     trip = Trip.find(params[:trip_id])
-    accommodation = trip.accommodations.create(accommodation_params)
+    accommodation = trip.accommodations.create!(accommodation_params)
     render(json: AccommodationSerializer.new(accommodation))
   end
 

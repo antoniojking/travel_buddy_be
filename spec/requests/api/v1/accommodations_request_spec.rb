@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'accommodations api' do
+  describe 'happy path' do
   it 'can create a new accommodation' do
     user = create(:user)
     trip = create(:trip, user: user)
@@ -44,4 +45,26 @@ RSpec.describe 'accommodations api' do
         expect(accommodation[:attributes]).to have_key(:details)
       end
     end
+  end
+
+  describe 'sad path' do
+    it 'will not make a new accommodation if some params are missing' do
+      user = create(:user)
+      trip = create(:trip, user: user)
+      accommodation_params = {
+        name: 'Camp 4',
+        location: 'Yosemite Valley'
+      }
+      headers = {"CONTENT_TYPE" => "application/json"}
+
+      post "/api/v1/trips/#{trip.id}/accommodations", headers: headers, params: JSON.generate(accommodation_params)
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+
+      error = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error).to have_key(:message)
+    end
+  end
   end
