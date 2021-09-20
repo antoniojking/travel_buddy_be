@@ -3,7 +3,7 @@
 HTTP Verb | Endpoint              | Description                              | Link
 ----------|-----------------------|------------------------------------------|---------------------------
 GET       | `/api/v1/users/{user_id}` | Get a single user. | [Link](#get-one-user)
-POST      | `/api/v1/users`           | Find or create user. | [Link](#find-or-create-user)
+POST      | `/api/v1/users`           | Find and update or create user. | [Link](#find-or-create-user)
 GET       | `/api/v1/users/{user_id}/friendships` | Find all user friendships. | [Link](#get-user-friendships)
 POST      | `/api/v1/users/{user_id}/friendships` | Add a friend to user friendships. | [Link](#create-user-friendship)
 GET       | `/api/v1/trips/{trip_id}` | Get a single trip. | [Link](#get-one-trip)
@@ -354,7 +354,8 @@ Example:
           "email":"scottie_schultz@reichel.net",
           "created_at":"2021-09-19T22:22:37.035Z",
           "updated_at":"2021-09-19T22:22:37.035Z",
-          "spotify_id":"asljkbadskjfba"}]
+          "spotify_id":"asljkbadskjfba"}],
+        "accommodations": []
         }
       }
     }
@@ -421,13 +422,14 @@ Example:
        "user_id":13},
        "checklists": [],
        "travel_buddies":
-        [{"id":13,
-        "token":"alskjfhadlskjfh9823y489",
-        "refresh_token":"2398rcbjwiuf834hf",
-        "email":"willis@lowe.org",
-        "created_at":"2021-09-20T13:01:32.570Z",
-        "updated_at":"2021-09-20T13:01:32.570Z",
-        "spotify_id":"asljkbadskjfba"}]
+          [{"id":13,
+          "token":"alskjfhadlskjfh9823y489",
+          "refresh_token":"2398rcbjwiuf834hf",
+          "email":"willis@lowe.org",
+          "created_at":"2021-09-20T13:01:32.570Z",
+          "updated_at":"2021-09-20T13:01:32.570Z",
+          "spotify_id":"asljkbadskjfba"}],
+        "accommodations": []
       }
     }
   }
@@ -486,7 +488,8 @@ Example:
        "park_name":"Grand Teton National Park",
        "user_id":16},
        "checklists": [],
-       "travel_buddies":[]
+       "travel_buddies":[],
+       "accommodations": []
       }
     }
   }
