@@ -128,5 +128,44 @@ RSpec.describe 'accommodations api' do
 
       expect(error).to have_key(:message)
     end
+
+    it 'will not send a successful response if id does not match an existing accommosation' do
+      user = create(:user)
+      trip = create(:trip, user: user)
+      accommodation = create(:accommodation, trip: trip)
+
+      get "/api/v1/trips/#{trip.id}/accommodations/1234"
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(404)
+    end
+
+    it 'will not update an accommodation if id does not match an existing accommosation' do
+      user = create(:user)
+      trip = create(:trip, user: user)
+      accommodation_params = {
+        name: 'Yosemit Lodge'
+      }
+      headers = {"CONTENT_TYPE" => "application/json"}
+
+      patch "/api/v1/trips/#{trip.id}/accommodations/1234", headers: headers, params: JSON.generate(accommodation_params)
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(404)
+    end
+
+    it 'will not deletee an accommodation if id does not match an existing accommosation' do
+      user = create(:user)
+      trip = create(:trip, user: user)
+      accommodation_params = {
+        name: 'Yosemit Lodge'
+      }
+      headers = {"CONTENT_TYPE" => "application/json"}
+
+      delete "/api/v1/trips/#{trip.id}/accommodations/1234"
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(404)
+    end
   end
 end
