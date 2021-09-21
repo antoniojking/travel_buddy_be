@@ -8,4 +8,16 @@ class Trip < ApplicationRecord
   has_many :checklists
   has_many :accommodations
   belongs_to :user
+
+  def self.upcoming_trips
+    where("trips.start_date > '#{Date.today}'").order(:start_date)
+  end
+
+  def self.current_trips
+    where("'#{Date.today}' BETWEEN trips.start_date AND trips.end_date")
+  end
+
+  def self.past_trips
+    where("trips.start_date < '#{Date.today}'").order(:start_date)
+  end
 end
