@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_19_183106) do
+ActiveRecord::Schema.define(version: 2021_09_21_221328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 2021_09_19_183106) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.string "park_code"
-    t.string "name"
+    t.string "name", default: "New Trip"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

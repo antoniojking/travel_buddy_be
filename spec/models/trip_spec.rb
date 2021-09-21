@@ -23,8 +23,9 @@ RSpec.describe Trip do
         trip1 = create(:trip, start_date: DateTime.new(2021, 11, 18), end_date: DateTime.new(2021, 11, 30), user: user)
         trip2 = create(:trip, start_date: DateTime.new(2021, 10, 18), end_date: DateTime.new(2021, 10, 30), user: user)
         trip3 = create(:trip, start_date: DateTime.new(2021, 8, 18), end_date: DateTime.new(2021, 8, 30), user: user)
+        trip4 = create(:trip, start_date: nil, end_date: nil, user: user)
 
-        expected = [trip2, trip1]
+        expected = [trip2, trip1, trip4]
 
         expect(Trip.upcoming_trips).to eq(expected)
       end
