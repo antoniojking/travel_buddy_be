@@ -27,7 +27,9 @@ RSpec.describe 'User API' do
     expect(user[:data][:attributes]).to have_key(:token)
     expect(user[:data][:attributes]).to have_key(:refresh_token)
     expect(user[:data][:attributes]).to have_key(:spotify_id)
-    expect(user[:data][:attributes]).to have_key(:trips)
+    expect(user[:data][:attributes]).to have_key(:upcoming_trips)
+    expect(user[:data][:attributes]).to have_key(:current_trips)
+    expect(user[:data][:attributes]).to have_key(:past_trips)
     expect(user[:data][:attributes]).to have_key(:friends)
   end
 
