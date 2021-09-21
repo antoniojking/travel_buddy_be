@@ -7,5 +7,5 @@ class ParkSerializer
              :directions,
              :operating_hours,
              :images,
-             :state
+             :states
 end

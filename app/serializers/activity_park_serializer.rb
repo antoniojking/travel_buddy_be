@@ -1,4 +1,4 @@
 class ActivityParkSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :name
+  attributes :name, :states
 end

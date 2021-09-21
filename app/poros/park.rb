@@ -18,6 +18,14 @@ class Park
     @directions = park_info[:directionsInfo]
     @operating_hours = park_info[:operatingHours]
     @images = park_info[:images]
-    @state = park_info[:states]
+    @states = check_state_values(park_info[:states])
+  end
+
+  def check_state_values(state)
+    if state.length > 2
+      return state.split(',')
+    else
+      return [state]
+    end
   end
 end
