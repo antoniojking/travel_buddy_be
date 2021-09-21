@@ -2,16 +2,23 @@ require 'rails_helper'
 
 RSpec.describe 'User API' do
   it 'can send one user info' do
+    allow(Date).to receive(:today).and_return Date.new(2021, 9, 13)
+
     user = create(:user)
+    trip1 = create(:trip, start_date: DateTime.new(2021, 9, 11), end_date: DateTime.new(2021, 9, 18), user: user)
+    trip2 = create(:trip, start_date: DateTime.new(2021, 12, 18), end_date: DateTime.new(2021, 12, 30), user: user)
+    trip3 = create(:trip, start_date: DateTime.new(2021, 4, 18), end_date: DateTime.new(2021, 5, 30), user: user)
+    trip4 = create(:trip, start_date: nil, end_date: nil, user: user)
     user2 = create(:user)
     friendship = Friendship.create!(user: user, friend: user2)
-    trip = create(:trip, user: user)
-    travel_buddy = TravelBuddy.create!(trip: trip, user: user2)
-    travel_buddy2 = TravelBuddy.create!(trip: trip, user: user)
+    travel_buddy = TravelBuddy.create!(trip: trip1, user: user2)
+    travel_buddy2 = TravelBuddy.create!(trip: trip1, user: user)
 
-    trip2 = create(:trip, name: 'Grand Canyon', user: user2)
     travel_buddy3 = TravelBuddy.create!(trip: trip2, user: user)
     travel_buddy4 = TravelBuddy.create!(trip: trip2, user: user2)
+    travel_buddy5 = TravelBuddy.create!(trip: trip3, user: user)
+    travel_buddy6 = TravelBuddy.create!(trip: trip3, user: user2)
+    travel_buddy7 = TravelBuddy.create!(trip: trip4, user: user)
 
     get "/api/v1/users/#{user.id}"
 
@@ -27,7 +34,9 @@ RSpec.describe 'User API' do
     expect(user[:data][:attributes]).to have_key(:token)
     expect(user[:data][:attributes]).to have_key(:refresh_token)
     expect(user[:data][:attributes]).to have_key(:spotify_id)
-    expect(user[:data][:attributes]).to have_key(:trips)
+    expect(user[:data][:attributes]).to have_key(:upcoming_trips)
+    expect(user[:data][:attributes]).to have_key(:current_trips)
+    expect(user[:data][:attributes]).to have_key(:past_trips)
     expect(user[:data][:attributes]).to have_key(:friends)
   end
 
