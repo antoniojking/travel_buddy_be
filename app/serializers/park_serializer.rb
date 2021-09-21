@@ -6,5 +6,6 @@ class ParkSerializer
              :contacts,
              :directions,
              :operating_hours,
-             :images
+             :images,
+             :state
 end

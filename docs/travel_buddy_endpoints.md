@@ -9,8 +9,11 @@ POST      | `/api/v1/users/{user_id}/friendships` | Add a friend to user friends
 GET       | `/api/v1/trips/{trip_id}` | Get a single trip. | [Link](#get-one-trip)
 POST      | `/api/v1/trips` | Add a trip to user trips. | [Link](#create-user-trip)
 PATCH     | `/api/v1/trips/{trip_id}` | Update a trips information. | [Link](#update-user-trip)
-GET       | `/api/v1/trips/{trip_id}/accommodations` | Find all checklists with checklist items for a trip | [Link](#get-trip-accommodations)
-POST      | `/api/v1/trips/{trip_id}/accommodations` | Add a checklists to a trip | [Link](#create-trip-accommodation)
+GET       | `/api/v1/trips/{trip_id}/accommodations` | Find all accommodations for a trip | [Link](#get-trip-accommodations)
+GET       | `/api/v1/trips/{trip_id}/accommodations/{accommodation_id}` | Find one accommodation for a trip | [Link](#show-trip-accommodations)
+POST      | `/api/v1/trips/{trip_id}/accommodations` | Add a accommodation to a trip | [Link](#create-trip-accommodation)
+PATCH     | `/api/v1/trips/{trip_id}/accommodations/{accommodation_id}` | Update an accommodation for a trip | [Link](#update-trip-accommodation)
+DELETE    | `/api/v1/trips/{trip_id}/accommodations/{accommodation_id}` | Destroy an accommodation for a trip | [Link](#delete-trip-accommodation)
 GET       | `/api/v1/trips/{trip_id}/travel_buddies` | Find all trip travel buddies | [Link](#get-trip-travel-buddies)
 POST      | `/api/v1/trips/{trip_id}/travel_buddies` | Add a travel buddy to a trip | [Link](#create-trip-travel-buddy)
 GET       | `/api/v1/trips/{trip_id}/checklists` | Find all checklists with checklist items for a trip | [Link](#get-trip-checklists)
@@ -544,6 +547,40 @@ Example:
 ```
 ---
 
+# Show Trip Accommodations
+
+Find one accommodation for a trip.
+
+```
+GET /api/v1/trips/{trip_id}/accommodations/{accommodation_id}
+```
+
+## Parameters
+
+Name        | Data Type | In    | Required/Optional    | Description
+------------|---------|-------|----------------------|------------
+`trip_id`   | Integer | Path | Required | The trip ID
+`accommodation_id`   | Integer | Path | Required | The accommodation ID
+
+## Example Request
+
+```
+GET https://travel-buddy-api.herokuapp.com/api/v1/trip/2/accommodations/2
+```
+
+## Example Response
+```
+{"data:
+  {:id=>"225",
+   :type=>"accommodation",
+   :attributes=>
+    {:name=>"Kigali", :location=>"Kangchenjunga", :details=>"Chuck Norris programs do not accept input."}}}
+```
+
+---
+
+
+
 # Create Trip Accommodation
 
 Creates accommodation for a trip with given attributes.
@@ -566,7 +603,7 @@ Notes:
 ## Example Request
 
 ```
-POST https://travel-buddy-api.herokuapp.com/api/trips/39/accommodations
+POST https://travel-buddy-api.herokuapp.com/api/v1/trips/39/accommodations
 ```
 With the following example request body:
 
@@ -592,10 +629,18 @@ Example:
      "attributes":
       {"name":"Camp 4",
        "location":"Yosemite Valley",
-        "details":"Pitch your test behind the large boulder"}
+        "details":"Pitch your tent behind the large boulder"}
     }
   }
 ```
+---
+
+# Update Trip Accommodations
+
+---
+
+# Delete Trip Accommodations
+
 ---
 
 # Get Trip Travel Buddies

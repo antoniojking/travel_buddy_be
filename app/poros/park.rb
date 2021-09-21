@@ -6,7 +6,8 @@ class Park
               :contacts,
               :directions,
               :operating_hours,
-              :images
+              :images,
+              :state
 
   def initialize(park_info)
     @name = park_info[:fullName]
@@ -17,5 +18,6 @@ class Park
     @directions = park_info[:directionsInfo]
     @operating_hours = park_info[:operatingHours]
     @images = park_info[:images]
+    @state = park_info[:states]
   end
 end
