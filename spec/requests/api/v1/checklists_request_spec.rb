@@ -28,7 +28,29 @@ RSpec.describe 'Checklist API' do
         expect(checklist).to have_key(:attributes)
         expect(checklist[:attributes]).to have_key(:category)
         expect(checklist[:attributes]).to have_key(:item_count)
+        expect(checklist[:attributes]).to have_key(:items)
       end
+    end
+
+    it 'can send information checklist for a trip' do
+      user = create(:user)
+      trip = create(:trip, user: user)
+      travel_buddy1 = TravelBuddy.create(user: user, trip: trip)
+      checklist = create(:checklist, trip: trip)
+      checklist_item1 = ChecklistItem.create!(name: 'Tent', user: user, checklist: checklist)
+      checklist_item2 = ChecklistItem.create!(name: 'Pick Axe', user: user, checklist: checklist)
+
+      get "/api/v1/trips/#{trip.id}/checklists/#{checklist.id}"
+
+      expect(response).to be_successful
+
+      json = JSON.parse(response.body, symbolize_names: true)[:data]
+
+      expect(json).to have_key(:id)
+      expect(json).to have_key(:attributes)
+      expect(json[:attributes]).to have_key(:category)
+      expect(json[:attributes]).to have_key(:item_count)
+      expect(json[:attributes]).to have_key(:items)
     end
 
     it 'can create a new checklist' do
