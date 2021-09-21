@@ -10,7 +10,7 @@ Rails.application.routes.draw do
         resources :accommodations, except: [:new, :edit]
         resources :travel_buddies, only: [:index, :create]
         resources :activities, only: [:index, :create]
-        resources :checklists, only: [:index, :create] do
+        resources :checklists, only: [:index, :create, :show] do
           resources :checklist_items, only: [:index, :create]
         end
       end

@@ -4,6 +4,12 @@ class Api::V1::ChecklistsController < ApplicationController
     render(json: ChecklistSerializer.new(trip.checklists))
   end
 
+  def show
+    trip = Trip.find(params[:trip_id])
+    checklist = Checklist.find(params[:id])
+    render(json: ChecklistSerializer.new(checklist))
+  end
+
   def create
     trip = Trip.find(params[:trip_id])
     checklist = trip.checklists.create!(checklist_params)
