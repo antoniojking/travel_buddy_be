@@ -7,7 +7,7 @@ class Park
               :directions,
               :operating_hours,
               :images,
-              :state
+              :states
 
   def initialize(park_info)
     @name = park_info[:fullName]

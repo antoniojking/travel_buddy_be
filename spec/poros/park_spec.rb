@@ -92,6 +92,6 @@ RSpec.describe Park do
     expect(park.directions).to eq(attributes[:directionsInfo])
     expect(park.operating_hours).to eq(attributes[:operatingHours])
     expect(park.images).to eq(attributes[:images])
-    expect(park.state).to eq(attributes['CO', 'WY'])
+    expect(park.states).to eq(['CO', 'WY'])
   end
 end
