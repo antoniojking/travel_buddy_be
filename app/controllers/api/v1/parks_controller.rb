@@ -5,7 +5,9 @@ class Api::V1::ParksController < ApplicationController
       render(json: ParkSerializer.new(parks))
     elsif activity_present_and_not_blank?
       parks = ParkFacade.create_parks_by_activity(params[:activity])
-      render(json: ActivityParkSerializer.new(parks))
+      render(json: ErrorSerializer.no_activities_error, status: :bad_request) if parks.nil?
+
+      render(json: ActivityParkSerializer.new(parks)) if !parks.nil?
     else
       render(json: ErrorSerializer.park_params_blank_or_missing, status: :bad_request)
     end
