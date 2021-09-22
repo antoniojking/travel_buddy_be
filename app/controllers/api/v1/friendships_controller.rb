@@ -7,7 +7,12 @@ class Api::V1::FriendshipsController < ApplicationController
   def create
     friend = User.find_by(email: params[:email])
     user = User.find(params[:user_id])
-    friendship = Friendship.create!(user: user, friend_id: friend.id)
-    render(json: FriendshipSerializer.new(friendship))
+    
+    if !friend.nil?
+      friendship = Friendship.create!(user_id: user.id, friend_id: friend.id)
+      render(json: FriendshipSerializer.new(friendship))
+    else
+      render(json: ErrorSerializer.friendship_not_created, status: :bad_request)
+    end
   end
 end

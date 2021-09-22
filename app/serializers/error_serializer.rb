@@ -26,4 +26,11 @@ class ErrorSerializer
       "status": "bad request"
     }
   end
+
+  def self.friendship_not_created
+    {
+      "message": "user does not exist",
+      "status": "bad request"
+    }
+  end
 end
