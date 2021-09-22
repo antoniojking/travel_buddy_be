@@ -5,14 +5,9 @@ class Api::V1::FriendshipsController < ApplicationController
   end
 
   def create
-    friend = User.find(params[:friend_id])
-    friendship = Friendship.create(friendship_params)
+    friend = User.find_by(email: params[:email])
+    user = User.find(params[:user_id])
+    friendship = Friendship.create!(user: user, friend_id: friend.id)
     render(json: FriendshipSerializer.new(friendship))
-  end
-
-  private
-
-  def friendship_params
-    params.permit(:user_id, :friend_id)
   end
 end
