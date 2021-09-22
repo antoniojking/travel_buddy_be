@@ -40,4 +40,11 @@ class ErrorSerializer
       "status": "bad request"
     }
   end
+
+  def self.no_activities_error
+    {
+      "message": "no park has this activity",
+      "status": "bad request"
+    }
+  end
 end
