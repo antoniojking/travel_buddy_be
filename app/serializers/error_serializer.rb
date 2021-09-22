@@ -33,4 +33,11 @@ class ErrorSerializer
       "status": "bad request"
     }
   end
+
+  def self.params_missing_error
+    {
+      "message": "some params are missing from request",
+      "status": "bad request"
+    }
+  end
 end
