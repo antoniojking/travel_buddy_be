@@ -11,9 +11,13 @@ class Api::V1::ChecklistItemsController < ApplicationController
   end
 
   def update
-    checklist = Checklist.find(params[:checklist_id])
-    checklist_item = ChecklistItem.update(params[:id], checklist_item_params)
-    render(json: ChecklistItemSerializer.new(checklist_item))
+    if name_not_missing?
+      checklist = Checklist.find(params[:checklist_id])
+      checklist_item = ChecklistItem.update(params[:id], checklist_item_params)
+      render(json: ChecklistItemSerializer.new(checklist_item))
+    else
+      render(json: ErrorSerializer.params_missing_error, status: :bad_request)
+    end
   end
 
   def destroy
@@ -25,5 +29,9 @@ class Api::V1::ChecklistItemsController < ApplicationController
 
   def checklist_item_params
     params.permit(:name, :checklist_id, :user_id)
+  end
+
+  def name_not_missing?
+    params[:name].present?
   end
 end
