@@ -101,10 +101,13 @@ RSpec.describe 'accommodations api' do
       accommodation = create(:accommodation, trip: trip)
       previous_name = accommodation.name
 
+      expect(Accommodation.count).to eq(1)
+
       delete "/api/v1/trips/#{trip.id}/accommodations/#{accommodation.id}"
 
       expect(response).to be_successful
 
+      expect(Accommodation.count).to eq(0)
       expect{Accommodation.find(accommodation.id)}.to raise_error(ActiveRecord::RecordNotFound)
     end
   end

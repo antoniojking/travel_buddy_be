@@ -111,5 +111,25 @@ require 'rails_helper'
 
       expect(error).to have_key(:message)
     end
+
+    it 'will raise an error if end date is before start date' do
+      user = create(:user)
+      trip = Trip.create!(park_name: 'RMNP', park_code: 'romo', start_date: nil, end_date: nil, user: user)
+      trip_params = {
+        start_date: DateTime.new(2021, 11, 18),
+        end_date: DateTime.new(2021, 10, 18),
+        name: 'Graduation Teton Trip'
+      }
+
+      headers = {"CONTENT_TYPE" => "application/json"}
+
+      patch "/api/v1/trips/#{trip.id}", headers: headers, params: JSON.generate(trip_params)
+
+      expect(response).to_not be_successful
+
+      error = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error).to have_key(:message)
+    end
   end
  end

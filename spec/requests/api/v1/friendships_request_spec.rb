@@ -22,32 +22,32 @@ RSpec.describe 'Friendship API' do
       expect(friendships[:data][0][:attributes]).to have_key(:email)
     end
 
-    it 'creates a new friendship' do
-      user1 = create(:user).id
-      user2 = create(:user).id
+    it 'creates a new friendship with a friend email' do
+      user1 = create(:user)
+      user2 = create(:user)
       headers = {"CONTENT_TYPE" => "application/json"}
 
-      post "/api/v1/users/#{user1}/friendships", headers: headers, params: JSON.generate({ friend_id: user2})
+      post "/api/v1/users/#{user1.id}/friendships", headers: headers, params: JSON.generate({ email: user2.email})
 
       expect(response).to be_successful
 
       friendship = Friendship.last
 
-      expect(friendship.user_id).to eq(user1)
-      expect(friendship.friend_id).to eq(user2)
+      expect(friendship.user_id).to eq(user1.id)
+      expect(friendship.friend_id).to eq(user2.id)
     end
   end
 
   describe 'sad path' do
-    it 'will not create a friendship if friend id does not belong to a user' do
-      user1 = create(:user).id
-      user2 = create(:user).id
+    it 'will not create a friendship if friend email does not belong to a user' do
+      user1 = create(:user)
+      user2 = create(:user)
       headers = {"CONTENT_TYPE" => "application/json"}
 
-      post "/api/v1/users/#{user1}/friendships", headers: headers, params: JSON.generate({friend_id: 82372})
+      post "/api/v1/users/#{user1.id}/friendships", headers: headers, params: JSON.generate({ email: 'test@test.com' })
 
       expect(response).to_not be_successful
-      expect(response.status).to eq(404)
+      expect(response.status).to eq(400)
 
       error = JSON.parse(response.body, symbolize_names: true)
 
