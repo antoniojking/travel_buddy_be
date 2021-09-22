@@ -12,6 +12,14 @@ RSpec.describe Trip do
   describe 'validations' do
     it { should validate_presence_of(:park_code) }
     it { should validate_presence_of(:park_name) }
+
+    describe '#start_date_before_end_date' do
+      it 'validates that start date is before end date' do
+      user = create(:user)
+
+      expect{Trip.create!(park_code: 'romo', park_name: 'RMNP', start_date: DateTime.new(2021, 11, 18), end_date: DateTime.new(2021, 10, 18), user: user)}.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
   end
 
   describe 'class methods' do
