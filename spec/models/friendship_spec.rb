@@ -11,9 +11,8 @@ RSpec.describe Friendship do
       it 'validates that a friendship is unique' do
         user1 = create(:user)
         user2 = create(:user)
-
-
-        friendship = Friendship.create!(user_id: user1.id, friend_id: user2.id)
+        
+        expect{Friendship.create!(user_id: user1.id, friend_id: user2.id)}.to_not raise_error(ActiveRecord::RecordInvalid)
 
         expect{Friendship.create!(user_id: user1.id, friend_id: user2.id)}.to raise_error(ActiveRecord::RecordInvalid)
       end
