@@ -11,7 +11,8 @@ RSpec.describe 'checklist items api' do
       checklist = create(:checklist, trip: trip)
       checklist_item_params = {
         name: 'Tent',
-        user_id: user.id
+        user_id: user.id,
+        user_email: user.email
       }
       headers = {"CONTENT_TYPE" => "application/json"}
 
@@ -24,6 +25,7 @@ RSpec.describe 'checklist items api' do
       expect(checklist_item.name).to eq(checklist_item_params[:name])
       expect(checklist_item.user_id).to eq(checklist_item_params[:user_id])
       expect(checklist_item.checklist_id).to eq(checklist.id)
+      expect(checklist_item.user_email).to eq(checklist_item_params[:user_email])
     end
 
     it 'can show a list of checklist items for a trip' do

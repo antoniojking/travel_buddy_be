@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_21_221328) do
+ActiveRecord::Schema.define(version: 2021_09_23_032050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2021_09_21_221328) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "user_email"
     t.index ["checklist_id"], name: "index_checklist_items_on_checklist_id"
     t.index ["user_id"], name: "index_checklist_items_on_user_id"
   end
