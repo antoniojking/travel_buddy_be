@@ -20,7 +20,7 @@ RSpec.describe WeatherFacade do
         grnd_level: 987
     }}
 
-    weather_info = WeatherFacade.create_weather('37.5858662', '-85.67330523')
+    weather = WeatherFacade.create_weather('37.5858662', '-85.67330523')
     expect(weather).to be_an_instance_of(Weather)
   end
 

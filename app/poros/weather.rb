@@ -11,6 +11,5 @@ class Weather
 
   def kelvin_to_farhenhiet(k)
     ((k - 273.15) * 9 / 5 + 32).round(2)
-    # ( 9 / 5 ( k - 273 ) + 32 ).round(2)
   end
 end

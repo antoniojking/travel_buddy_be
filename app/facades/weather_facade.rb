@@ -17,7 +17,8 @@ class WeatherFacade
   #   }
   # end
 
-  def self.create_weather(query, num_of_days)
-    Weather.new(weather_info(query, num_of_days))
+  def self.create_weather(lat, lon)
+    json = WeatherService.get_destination_weather(lat, lon)
+    Weather.new(json)
   end
 end
