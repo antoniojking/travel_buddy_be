@@ -20,15 +20,15 @@ require 'rails_helper'
      expect(weather[:attributes][:current_conditions].class).to eq(String)
    end
 
-   xit 'sad path: params do not include location or days', :vcr do
+   it 'sad path: params do not include location or days', :vcr do
      get '/api/v1/weather'
 
      expect(response).to_not be_successful
      expect(response.status).to eq(400)
    end
 
-   xit 'edge case: params are included but in correct format', :vcr do
-     get '/api/v1/weather', params: {location: '', days: ''}
+   it 'edge case: params are included but in correct format', :vcr do
+     get '/api/v1/weather', params: {lat: '', lon: ''}
 
      expect(response).to_not be_successful
      expect(response.status).to eq(400)

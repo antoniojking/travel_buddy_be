@@ -3,11 +3,11 @@ class Trip < ApplicationRecord
   validates :park_name, presence: true
   validate :start_date_before_end_date, on: [:create, :update]
 
-  has_many :activities
-  has_many :travel_buddies
-  has_many :users, through: :travel_buddies
-  has_many :checklists
-  has_many :accommodations
+  has_many :activities, dependent: :destroy
+  has_many :travel_buddies, dependent: :destroy
+  has_many :users, through: :travel_buddies, dependent: :destroy
+  has_many :checklists, dependent: :destroy
+  has_many :accommodations, dependent: :destroy
   belongs_to :user
 
   def start_date_before_end_date
