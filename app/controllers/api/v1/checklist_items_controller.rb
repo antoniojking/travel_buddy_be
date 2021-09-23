@@ -28,7 +28,7 @@ class Api::V1::ChecklistItemsController < ApplicationController
   private
 
   def checklist_item_params
-    params.permit(:name, :checklist_id, :user_id)
+    params.permit(:name, :checklist_id, :user_id, :user_email)
   end
 
   def name_not_missing?
