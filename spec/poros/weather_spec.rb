@@ -1,20 +1,33 @@
 require 'rails_helper'
 
- RSpec.describe Weather do
-   it 'exists and has attributes' do
-     attributes = {
-       id: 'Estes Park',
-       current_temp: 89.8,
-       current_conditions: 'Sunny',
-       forecast: [{date: '2021-09-17', min_temp: 50, max_temp: 90, condition: 'Partly cloudy'}, {date: '2021-09-18', min_temp: 49, max_temp: 88, condition: 'Partly sunny'}]
-     }
+RSpec.describe Weather do
+  it 'exists and has attributes' do
+    attributes = {weather: [
+      {
+        id: 800,
+        main: "Clear",
+        description: "clear sky",
+        icon: "01d"}],
+        main: {
+          temp: 290.77,
+          feels_like: 290,
+          temp_min: 289.71,
+          temp_max: 291.82,
+          pressure: 1017,
+          humidity: 54,
+          sea_level: 1017,
+          grnd_level: 987
+          }}
 
-     weather = Weather.new(attributes)
+          weather = Weather.new(attributes)
 
-     expect(weather).to be_an_instance_of(Weather)
-     expect(weather.id).to eq(attributes[:id])
-     expect(weather.current_temp).to eq(attributes[:current_temp])
-     expect(weather.current_conditions).to eq(attributes[:current_conditions])
-     expect(weather.forecast).to eq(attributes[:forecast])
-   end
- end
+          #
+
+          expect(weather).to be_an_instance_of(Weather)
+          expect(weather.id).to eq(attributes[:weather][0][:id])
+          expect(weather.current_temp).to eq(63.72)
+          expect(weather.min_temp).to eq(61.81)
+          expect(weather.max_temp).to eq(65.61)
+          expect(weather.current_conditions).to eq(attributes[:weather][0][:description])
+        end
+      end
