@@ -12,11 +12,8 @@ class Api::V1::ChecklistItemsController < ApplicationController
 
   def update
     checklist = Checklist.find(params[:checklist_id])
-    checklist_item = ChecklistItem.find(params[:id])
 
-    checklist_item.update!(checklist_item_params)
-
-    render(json: ChecklistItemSerializer.new(checklist_item))
+    render(json: ChecklistItemSerializer.new(ChecklistItem.update(params[:id], checklist_item_params)))
   end
 
   def destroy
@@ -27,6 +24,6 @@ class Api::V1::ChecklistItemsController < ApplicationController
   private
 
   def checklist_item_params
-    params.permit(:name, :user_email, :checklist_id, :user_id)
+    params.permit(:name, :checklist_id, :user_id, :user_email)
   end
 end
