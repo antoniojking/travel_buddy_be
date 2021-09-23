@@ -23,9 +23,4 @@ RSpec.describe WeatherFacade do
     weather = WeatherFacade.create_weather('37.5858662', '-85.67330523')
     expect(weather).to be_an_instance_of(Weather)
   end
-
-  xit 'can create a weather instance', :vcr do
-    weather = WeatherFacade.create_weather('boulder', 3)
-    expect(weather).to be_an_instance_of(Weather)
-  end
 end
