@@ -149,27 +149,6 @@ RSpec.describe 'checklist items api' do
       expect(error).to have_key(:message)
     end
 
-    it 'will not update a check list item if params are missing' do
-      user = create(:user)
-      trip = create(:trip, user: user)
-      user2 = create(:user)
-      travel_buddy1 = TravelBuddy.create(user: user, trip: trip)
-      travel_buddy2 = TravelBuddy.create(user: user2, trip: trip)
-      checklist = create(:checklist, trip: trip)
-      checklist_item = ChecklistItem.create!(name: 'Tent', user: user, checklist: checklist)
-
-      headers = {"CONTENT_TYPE" => "application/json"}
-
-      patch "/api/v1/trips/#{trip.id}/checklists/#{checklist.id}/checklist_items/#{checklist_item.id}"
-
-      expect(response).to_not be_successful
-      expect(response.status).to eq(400)
-
-      error = JSON.parse(response.body, symbolize_names: true)
-
-      expect(error).to have_key(:message)
-    end
-
     it 'will not delete a check list item if id is incorrect' do
       user = create(:user)
       trip = create(:trip, user: user)
