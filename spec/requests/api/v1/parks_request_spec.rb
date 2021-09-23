@@ -25,6 +25,10 @@ RSpec.describe 'Parks API' do
         expect(park[:attributes][:images]).to be_an(Array)
         expect(park[:attributes]).to have_key(:states)
         expect(park[:attributes][:states]).to be_an(Array)
+        expect(park[:attributes]).to have_key(:lat)
+        expect(park[:attributes][:lat]).to be_an(String)
+        expect(park[:attributes]).to have_key(:lon)
+        expect(park[:attributes][:lon]).to be_an(String)
       end
     end
 
@@ -66,6 +70,10 @@ RSpec.describe 'Parks API' do
       expect(park[:attributes][:images]).to be_an(Array)
       expect(park[:attributes]).to have_key(:states)
       expect(park[:attributes][:states]).to be_an(Array)
+      expect(park[:attributes]).to have_key(:lat)
+      expect(park[:attributes][:lat]).to be_an(String)
+      expect(park[:attributes]).to have_key(:lon)
+      expect(park[:attributes][:lon]).to be_an(String)
     end
   end
 
