@@ -7,7 +7,9 @@ class Park
               :directions,
               :operating_hours,
               :images,
-              :states
+              :states,
+              :lat,
+              :lon
 
   def initialize(park_info)
     @name = park_info[:fullName]
@@ -19,6 +21,8 @@ class Park
     @operating_hours = park_info[:operatingHours]
     @images = park_info[:images]
     @states = check_state_values(park_info[:states])
+    @lat = park_info[:latitude]
+    @lon = park_info[:longitude]
   end
 
   def check_state_values(state)

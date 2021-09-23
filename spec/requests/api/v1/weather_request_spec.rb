@@ -18,20 +18,6 @@ require 'rails_helper'
      expect(weather[:attributes][:max_temp].class).to eq(Float)
      expect(weather[:attributes]).to have_key(:current_conditions)
      expect(weather[:attributes][:current_conditions].class).to eq(String)
-
-
-
-     # expect(weather[:attributes]).to have_key(:current_conditions)
-     # expect(weather[:attributes][:current_conditions].class).to eq(String)
-     # expect(weather[:attributes]).to have_key(:forecast)
-     # expect(weather[:attributes][:forecast].class).to eq(Array)
-     # expect(weather[:attributes][:forecast].count).to eq(2)
-     # expect(weather[:attributes][:forecast][0]).to have_key(:date)
-     # expect(weather[:attributes][:forecast][0][:date].class).to eq(String)
-     # expect(weather[:attributes][:forecast][0]).to have_key(:max_temp)
-     # expect(weather[:attributes][:forecast][0][:max_temp].class).to eq(Float)
-     # expect(weather[:attributes][:forecast][0]).to have_key(:min_temp)
-     # expect(weather[:attributes][:forecast][0][:min_temp].class).to eq(Float)
    end
 
    xit 'sad path: params do not include location or days', :vcr do
