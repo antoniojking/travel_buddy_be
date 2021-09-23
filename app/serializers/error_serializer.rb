@@ -1,14 +1,7 @@
 class ErrorSerializer
   def self.weather_params_not_included
     {
-      "message": "location and days must be present",
-      "status": "bad request"
-    }
-  end
-
-  def self.weather_params_are_empty
-    {
-      "message": "location and days must not be blank",
+      "message": "latitude and longitude must be present",
       "status": "bad request"
     }
   end
