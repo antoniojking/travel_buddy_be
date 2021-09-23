@@ -7,19 +7,12 @@ RSpec.describe WeatherService do
   end
 
   it 'can get weather for a given destination', :vcr do
-    json = WeatherService.get_destination_weather('Boulder', 3)
+    json = WeatherService.get_destination_weather('37.5858662', '-85.67330523')
 
-    expect(json).to have_key(:location)
-    expect(json).to have_key(:current)
-    expect(json[:current]).to have_key(:temp_f)
-    expect(json[:current][:temp_f].class).to eq(Float)
-    expect(json[:current]).to have_key(:condition)
-    expect(json[:current][:condition]).to have_key(:text)
-    expect(json[:current][:condition][:text].class).to eq(String)
-    expect(json[:current][:condition]).to have_key(:icon)
-    expect(json[:current][:condition][:icon].class).to eq(String)
-    expect(json).to have_key(:forecast)
-    expect(json[:forecast].class).to eq(Hash)
-    expect(json[:forecast][:forecastday].count).to eq(3)
+    expect(json).to have_key(:weather)
+    expect(json[:weather][0]).to have_key(:description)
+    expect(json[:main]).to have_key(:temp)
+    expect(json[:main]).to have_key(:temp_min)
+    expect(json[:main]).to have_key(:temp_max)
   end
 end

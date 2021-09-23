@@ -64,10 +64,11 @@ RSpec.describe 'checklist items api' do
       checklist = create(:checklist, trip: trip)
       checklist_item = ChecklistItem.create!(name: 'Tent', user: user, checklist: checklist)
       previous_name = checklist_item.name
+      previous_email = user.email
 
       checklist_item_params = {
         name: 'Sleeping Bag',
-        user_id: user.id
+        user_email: 'test@test.com'
       }
 
       headers = {"CONTENT_TYPE" => "application/json"}
@@ -80,6 +81,8 @@ RSpec.describe 'checklist items api' do
 
       expect(found_checklist_item.name).to_not eq(previous_name)
       expect(found_checklist_item.name).to eq('Sleeping Bag')
+      expect(found_checklist_item.user_email).to_not eq(previous_email)
+      expect(found_checklist_item.user_email).to eq('test@test.com')
     end
 
     it 'can delete an existing checklist item' do
