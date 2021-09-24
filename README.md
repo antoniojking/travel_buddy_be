@@ -64,25 +64,31 @@ The following table presents each API endpoint and its documentation.
 
 Endpoint | Docs/Example
 ---------|-------------
-Get All Merchants | [docs][get-all-merchants-docs]
-Get One User | [docs][get-one-user-docs]
-Find or Create User | [docs][find-or-create-user-docs]
-Get User Friendships | [docs][get-user-friendships-docs]
-Create User Friendship | [docs][create-user-friendships-docs]
-Get One Trip | [docs][get-one-trip-docs]
-Create Trip | [docs][create-user-trip-docs]
-Update Trip | [docs][update-user-trip-docs]
-Get Trips Accommodations | [docs][get-trips-accommodations-docs]
-Create Trip Accommodation | [docs][create-trip-accommodation-docs]
-Get Trips Travel Buddies | [docs][get-trips-travel-buddies-docs]
-Create Trip Travel Buddy | [docs][create-trip-travel-buddy-docs]
-Get Trip Checklists | [docs][get-trip-checklists-docs]
-Create Trip Checklist | [docs][create-trip-checklist-docs]
-Create Trip Checklist Item | [docs][create-checklist-item-docs]
-Get NPs by State | [docs][get-parks-by-state-docs]
-Get NPs by Activity | [docs][get-parks-by-activity-docs]
-Get NP by Park Code | [docs][get-park-by-parkcode-docs]
-Get Weather | [docs][get-weather-docs]
+Get One User | GET /api/v1/users/{user_id}
+Find or Create User | GET /api/v1/users/{user_id}
+Get User Friendships | GET /api/v1/users/{user_id}/friendships
+Create User Friendship | POST /api/v1/users/{user_id}/friendships
+Get One Trip | GET /api/v1/trips/{trip_id}
+Create Trip | POST /api/v1/trips
+Update Trip | PATCH /api/v1/trips/{trip_id}
+Get Trips Accommodations | GET /api/v1/trips/{trip_id}/accommodations
+Get single Trip Accommodation | GET /api/v1/trips/{trip_id}/accommodations/{accommodation_id}
+Create Trip Accommodation | POST /api/v1/trips/{trip_id}/accommodations
+Update Trip Accommodation | PATCH /api/v1/trips/{trip_id}/accommodations/{accommodation_id}
+Delete Trip Accommodation | DELETE /api/v1/trips/{trip_id}/accommodations/{accommodation_id}
+Get Trips Travel Buddies | GET /api/v1/trips/{trip_id}/travel_buddies
+Create Trip Travel Buddy | POST /api/v1/trips/{trip_id}/travel_buddies
+Get Trip Checklists | GET /api/v1/trips/{trip_id}/checklists
+Get single Trip Checklist | GET /api/v1/trips/{trip_id}/checklists/{checklist_id}
+Create Trip Checklist | POST /api/v1/trips/{trip_id}/checklists
+Get Trip Checklist Items| GET /api/v1/trips/{trip_id}/checklists/{checklist_id}/checklist_items
+Create Trip Checklist Item | POST /api/v1/trips/{trip_id}/checklists/{checklist_id}/checklist_items
+Update Trip Checklist Item | PATCH /api/v1/trips/{trip_id}/checklists/{checklist_id}/checklist_items/{checklist_item_id}
+Delete Trip Checklist Item | DELETE /api/v1/trips/{trip_id}/checklists/{checklist_id}/checklist_items/{checklist_item_id}
+Get NPs by State | GET /api/v1/parks?state='WY'
+Get NPs by Activity | GET /api/v1/parks?activity='Fishing'
+Get NP by Park Code | GET /api/v1/parks/{park_code}
+Get Weather | GET /api/v1/weather
 
 
 ## Database Schema

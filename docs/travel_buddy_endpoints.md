@@ -3,7 +3,7 @@
 HTTP Verb | Endpoint              | Description                              | Link
 ----------|-----------------------|------------------------------------------|---------------------------
 GET       | `/api/v1/users/{user_id}` | Get a single user. | [Link](#get-one-user)
-POST      | `/api/v1/users`           | Find and update or create user. | [Link](#find-or-create-user)
+POST      | `/api/v1/users/{user_id}`           | Find and update or create user. | [Link](#find-or-create-user)
 GET       | `/api/v1/users/{user_id}/friendships` | Find all user friendships. | [Link](#get-user-friendships)
 POST      | `/api/v1/users/{user_id}/friendships` | Add a friend to user friendships. | [Link](#create-user-friendship)
 GET       | `/api/v1/trips/{trip_id}` | Get a single trip. | [Link](#get-one-trip)
